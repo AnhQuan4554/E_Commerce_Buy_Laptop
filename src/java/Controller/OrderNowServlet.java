@@ -43,7 +43,7 @@ public class OrderNowServlet extends HttpServlet {
                 orderModel.setQunatity(productQuantity);
                 orderModel.setDate(formatter.format(date));
 
-                OrderDao orderDao = new OrderDao(DbCon.getConnection());
+                OrderDao orderDao = new OrderDao();
                 boolean result = orderDao.insertOrder(orderModel);
                 if (result) {
                     ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart-list");
@@ -63,11 +63,9 @@ public class OrderNowServlet extends HttpServlet {
                 response.sendRedirect("login.jsp");
             }
 
-        } catch (ClassNotFoundException|SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}
+        }
+            // TODO Auto-generated catch block
+            	}
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

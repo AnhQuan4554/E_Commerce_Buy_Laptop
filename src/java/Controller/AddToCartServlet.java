@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Cart;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,16 +13,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
-
 @WebServlet(name = "AddToCartServlet", urlPatterns = "/add-to-cart")
 public class AddToCartServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
 
-        try (PrintWriter out = response.getWriter()) {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        User auth = (User) request.getSession().getAttribute("auth");
+        try ( PrintWriter out = response.getWriter()) {
 //        	out.print("add to cart servlet");
 
             ArrayList<Cart> cartList = new ArrayList<>();
@@ -52,6 +52,6 @@ public class AddToCartServlet extends HttpServlet {
                 }
             }
         }
-	}
+    }
 
 }

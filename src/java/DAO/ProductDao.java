@@ -6,17 +6,16 @@ import java.sql.*;
 import java.util.*;
 
 
-public class ProductDao {
-	private Connection con;
+public class ProductDao extends DbCon {
+
 
 	private String query;
     private PreparedStatement pst;
     private ResultSet rs;
     
 
-	public ProductDao(Connection con) {
+	public ProductDao() {
 		super();
-		this.con = con;
 	}
 	
 	
@@ -25,9 +24,8 @@ public class ProductDao {
         try {
 
             query = "select * from products";
-            pst = this.con.prepareStatement(query);
+            pst = con.prepareStatement(query);
             rs = pst.executeQuery();
-
             while (rs.next()) {
             	Product row = new Product();
                 row.setId(rs.getInt("id"));
@@ -35,7 +33,6 @@ public class ProductDao {
                 row.setCategory(rs.getString("category"));
                 row.setPrice(rs.getDouble("price"));
                 row.setImage(rs.getString("image"));
-
                 book.add(row);
             }
 
@@ -52,7 +49,7 @@ public class ProductDao {
 	        try {
 	            query = "select * from products where id=? ";
 
-	            pst = this.con.prepareStatement(query);
+	            pst = con.prepareStatement(query);
 	            pst.setInt(1, id);
 	            ResultSet rs = pst.executeQuery();
 
@@ -78,7 +75,7 @@ public class ProductDao {
             if (cartList.size() > 0) {
                 for (Cart item : cartList) {
                     query = "select price from products where id=?";
-                    pst = this.con.prepareStatement(query);
+                    pst = con.prepareStatement(query);
                     pst.setInt(1, item.getId());
                     rs = pst.executeQuery();
                     while (rs.next()) {
@@ -102,7 +99,7 @@ public class ProductDao {
             if (cartList.size() > 0) {
                 for (Cart item : cartList) {
                     query = "select * from products where id=?";
-                    pst = this.con.prepareStatement(query);
+                    pst = con.prepareStatement(query);
                     pst.setInt(1, item.getId());
                     rs = pst.executeQuery();
                     while (rs.next()) {

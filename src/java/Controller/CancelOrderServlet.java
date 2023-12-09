@@ -22,13 +22,10 @@ public class CancelOrderServlet extends HttpServlet {
 		try(PrintWriter out = response.getWriter()) {
 			String id = request.getParameter("id");
 			if(id != null) {
-				OrderDao orderDao = new OrderDao(DbCon.getConnection());
+				OrderDao orderDao = new OrderDao();
 				orderDao.cancelOrder(Integer.parseInt(id));
 			}
 			response.sendRedirect("orders.jsp");
-		} catch (ClassNotFoundException|SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} 
 	}
 

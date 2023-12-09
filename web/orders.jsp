@@ -13,7 +13,7 @@
 	List<Order> orders = null;
 	if (auth != null) {
 	    request.setAttribute("person", auth);
-	    OrderDao orderDao  = new OrderDao(DbCon.getConnection());
+	    OrderDao orderDao  = new OrderDao();
 		orders = orderDao.userOrders(auth.getId());
 	}else{
 		response.sendRedirect("login.jsp");

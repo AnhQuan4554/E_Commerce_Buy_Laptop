@@ -40,7 +40,7 @@ public class CheckOutServlet extends HttpServlet {
 					order.setQunatity(c.getQuantity());
 					order.setDate(formatter.format(date));
 					
-					OrderDao oDao = new OrderDao(DbCon.getConnection());
+					OrderDao oDao = new OrderDao();
 					boolean result = oDao.insertOrder(order);
 					if(!result) break;
 				}
@@ -52,10 +52,7 @@ public class CheckOutServlet extends HttpServlet {
 				}
 				response.sendRedirect("cart.jsp");
 			}
-		} catch (ClassNotFoundException|SQLException e) {
-			
-			e.printStackTrace();
-		}
+		} 
 	}
 
 	
