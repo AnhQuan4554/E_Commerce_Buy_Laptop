@@ -93,32 +93,32 @@ public class ProductDao extends DbCon {
     }
 
     
-    public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
-        List<Cart> book = new ArrayList<>();
-        try {
-            if (cartList.size() > 0) {
-                for (Cart item : cartList) {
-                    query = "select * from products where id=?";
-                    pst = con.prepareStatement(query);
-                    pst.setInt(1, item.getId());
-                    rs = pst.executeQuery();
-                    while (rs.next()) {
-                        Cart row = new Cart();
-                        row.setId(rs.getInt("id"));
-                        row.setName(rs.getString("name"));
-                        row.setCategory(rs.getString("category"));
-                        row.setPrice(rs.getDouble("price")*item.getQuantity());
-                        row.setQuantity(item.getQuantity());
-                        book.add(row);
-                    }
-
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return book;
-    }
+//    public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
+//        List<Cart> book = new ArrayList<>();
+//        try {
+//            if (cartList.size() > 0) {
+//                for (Cart item : cartList) {
+//                    query = "select * from products where id=?";
+//                    pst = con.prepareStatement(query);
+//                    pst.setInt(1, item.getId());
+//                    rs = pst.executeQuery();
+//                    while (rs.next()) {
+//                        Cart row = new Cart();
+//                        row.setId(rs.getInt("id"));
+//                        row.setName(rs.getString("name"));
+//                        row.setCategory(rs.getString("category"));
+//                        row.setPrice(rs.getDouble("price")*item.getQuantity());
+//                        row.setQuantity(item.getQuantity());
+//                        book.add(row);
+//                    }
+//
+//                }
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            System.out.println(e.getMessage());
+//        }
+//        return book;
+//    }
 }

@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 		try (PrintWriter out = response.getWriter()) {
 			String email = request.getParameter("login-email");
 			String password = request.getParameter("login-password");
-
+                   
 			UserDao udao = new UserDao();
 			User user = udao.userLogin(email, password);
 			if (user != null) {
