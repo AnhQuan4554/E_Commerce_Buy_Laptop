@@ -9,11 +9,11 @@
          pageEncoding="ISO-8859-1"%>
 <%
 DecimalFormat dcf = new DecimalFormat("#.##");
-request.setAttribute("dcf", dcf);
-User auth = (User) request.getSession().getAttribute("auth");
-if (auth != null) {
-    request.setAttribute("person", auth);
-}
+//request.setAttribute("dcf", dcf);
+//User auth = (User) request.getSession().getAttribute("auth");
+//if (auth != null) {
+//    request.setAttribute("person", auth);
+//}
 %>
 <!DOCTYPE html>
 <html>

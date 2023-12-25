@@ -17,7 +17,6 @@ public class UserDao extends DbCon {
         User user = null;
         try {
             query = "select * from users where email=? and password=?";
-            System.out.println("CON CUA LOGIN"+con);
             pst = con.prepareStatement(query);
             pst.setString(1, email);
             pst.setString(2, password);
@@ -28,6 +27,7 @@ public class UserDao extends DbCon {
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
                 user.setRole(rs.getString("role"));
+               
             }
         } catch (SQLException e) {
             System.out.print(e.getMessage());

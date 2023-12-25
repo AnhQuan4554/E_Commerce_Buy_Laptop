@@ -5,21 +5,17 @@ import Model.Product;
 import java.sql.*;
 import java.util.*;
 
-
 public class ProductDao extends DbCon {
 
-
-	private String query;
+    private String query;
     private PreparedStatement pst;
     private ResultSet rs;
-    
 
-	public ProductDao() {
-		super();
-	}
-	
-	
-	public List<Product> getAllProducts() {
+    public ProductDao() {
+        super();
+    }
+
+    public List<Product> getAllProducts() {
         List<Product> book = new ArrayList<>();
         try {
 
@@ -27,7 +23,7 @@ public class ProductDao extends DbCon {
             pst = con.prepareStatement(query);
             rs = pst.executeQuery();
             while (rs.next()) {
-            	Product row = new Product();
+                Product row = new Product();
                 row.setId(rs.getInt("id"));
                 row.setName(rs.getString("name"));
                 row.setCategory(rs.getString("category"));
@@ -42,34 +38,116 @@ public class ProductDao extends DbCon {
         }
         return book;
     }
-	
-	
-	 public Product getSingleProduct(int id) {
-		 Product row = null;
-	        try {
-	            query = "select * from products where id=? ";
+      public boolean addProduct(Product product) {
+        try {
+            String sql = "INSERT INTO products(id, name, category, price, image) Values(?,?,?,?,?)";
+            PreparedStatement pst = this.con.prepareStatement(sql);
+            pst.setInt(1, product.getId());
+            pst.setString(2, product.getName());
+            pst.setString(3, product.getCategory());
+            pst.setDouble(4, product.getPrice());
+            pst.setString(5, product.getImage());
+         
+            pst.executeUpdate();
+            return true;
 
-	            pst = con.prepareStatement(query);
-	            pst.setInt(1, id);
-	            ResultSet rs = pst.executeQuery();
+        }
+        catch(SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Can not add Product)" + ex);
+            return false;
+        }
+      
+    } 
+          public Product findProduct(int productID) {
+        try {
+            query = "SELECT * FROM products WHERE id = '" + productID + "';";
+            pst = this.con.prepareStatement(query);
+            rs = pst.executeQuery();
 
-	            while (rs.next()) {
-	            	row = new Product();
-	                row.setId(rs.getInt("id"));
-	                row.setName(rs.getString("name"));
-	                row.setCategory(rs.getString("category"));
-	                row.setPrice(rs.getDouble("price"));
-	                row.setImage(rs.getString("image"));
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            System.out.println(e.getMessage());
-	        }
+            if (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt(1));
+                 product.setName(rs.getString(2));
+                 product.setCategory(rs.getString(3));
+                 product.setPrice(rs.getDouble(4));
+                 product.setImage(rs.getString(5));
+                return product;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Cannot find Product. Log in ProductDAO");
+            return null;
+        }
+    }
+      public boolean updateProduct(Product product) {
+        try {
+            String sql = "UPDATE products SET "
+                    + "name = ?,"
+                    + "category = ?,"
+                    + "price = ?,"
+                    + "image = ?"
+                    + "WHERE id = ?;"
+                    ;
+           PreparedStatement pst = this.con.prepareStatement(sql);
+           
+            pst.setString(1, product.getName());
+            pst.setString(2, product.getCategory());
+            pst.setDouble(3, product.getPrice());
+            pst.setString(4, product.getImage());
+            pst.setInt(5, product.getId());
+           
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Can't update product. Log at ProductDAO!!");
+            return false;
+        }
+    }
+        
+         
+    public boolean deleteProduct(int productId) {
+        try {
+            String sql = "DELETE FROM products where id = '" + productId + "'";
+            PreparedStatement pst = this.con.prepareStatement(sql);
+            pst.executeUpdate();
+            return true;
+        }
+        catch(SQLException e) {
+           e.printStackTrace();
+	   System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+    public Product getSingleProduct(int id) {
+        Product row = null;
+        try {
+            query = "select * from products where id=? ";
 
-	        return row;
-	    }
-	
-	public double getTotalCartPrice(ArrayList<Cart> cartList) {
+            pst = con.prepareStatement(query);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                row = new Product();
+                row.setId(rs.getInt("id"));
+                row.setName(rs.getString("name"));
+                row.setCategory(rs.getString("category"));
+                row.setPrice(rs.getDouble("price"));
+                row.setImage(rs.getString("image"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+        return row;
+    }
+
+    public double getTotalCartPrice(ArrayList<Cart> cartList) {
         double sum = 0;
         try {
             if (cartList.size() > 0) {
@@ -79,7 +157,7 @@ public class ProductDao extends DbCon {
                     pst.setInt(1, item.getId());
                     rs = pst.executeQuery();
                     while (rs.next()) {
-                        sum+=rs.getDouble("price")*item.getQuantity();
+                        sum += rs.getDouble("price") * item.getQuantity();
                     }
 
                 }
@@ -92,33 +170,68 @@ public class ProductDao extends DbCon {
         return sum;
     }
 
-    
-//    public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
-//        List<Cart> book = new ArrayList<>();
-//        try {
-//            if (cartList.size() > 0) {
-//                for (Cart item : cartList) {
-//                    query = "select * from products where id=?";
-//                    pst = con.prepareStatement(query);
-//                    pst.setInt(1, item.getId());
-//                    rs = pst.executeQuery();
-//                    while (rs.next()) {
-//                        Cart row = new Cart();
-//                        row.setId(rs.getInt("id"));
-//                        row.setName(rs.getString("name"));
-//                        row.setCategory(rs.getString("category"));
-//                        row.setPrice(rs.getDouble("price")*item.getQuantity());
-//                        row.setQuantity(item.getQuantity());
-//                        book.add(row);
-//                    }
-//
-//                }
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            System.out.println(e.getMessage());
-//        }
-//        return book;
-//    }
+    /// handle get product deepend on condition 
+    public List<Product> getProductsByPrice(String sortType) {
+        List<Product> productList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM products";
+            if (sortType != null && !sortType.isEmpty()) {
+                if (sortType.equals("lowtohigh")) {
+                    query += " ORDER BY price ASC";
+                } else if (sortType.equals("hightolow")) {
+                    query += " ORDER BY price DESC";
+                }
+            }
+
+            pst = con.prepareStatement(query);
+            
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setCategory(rs.getString("category"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImage(rs.getString("image"));
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return productList;
+    }
+
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> productList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM products";
+            if (category != null && !category.isEmpty()) {
+                query += " WHERE category = ?";
+            }
+
+            pst = con.prepareStatement(query);
+           
+            if (category != null && !category.isEmpty()) {
+                pst.setString(1, category);
+            }
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setCategory(rs.getString("category"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImage(rs.getString("image"));
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return productList;
+       
+    }
+
 }

@@ -28,14 +28,14 @@ public class LoginServlet extends HttpServlet {
 			UserDao udao = new UserDao();
 			User user = udao.userLogin(email, password);
 			if (user != null) {
+                            
 				request.getSession().setAttribute("auth", user);
-//				System.out.print("user logged in");
 				response.sendRedirect("index.jsp");
 			} else {
                             // creat value global contain 
 				out.println("there is no user");
 			}
-
+                           
 		} catch (Error e) {
                     System.out.println("ERR WHEN LOGIN"+e);
 		} 

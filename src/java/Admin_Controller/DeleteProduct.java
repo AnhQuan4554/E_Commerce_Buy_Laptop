@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+package Admin_Controller;
 
-package Controller;
-
-import DAO.CartDao;
-import Model.*;
-import jakarta.servlet.RequestDispatcher;
+import DAO.DbCon;
+import DAO.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,43 +13,35 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author welcome
+ * @author DELL
  */
+@WebServlet(name = "DeleteProductServlet", urlPatterns = {"/deleteProduct"})
+public class DeleteProduct extends HttpServlet {
 
-@WebServlet("/get-all-carts")
-public class GetAllCarts extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        User auth = (User) request.getSession().getAttribute("auth");
+            throws ServletException, IOException {
         
-        if(auth==null){
-          response.sendRedirect("login_require.jsp");
-          return;
-        }
-        CartDao cartDao = new CartDao();
-        List<Cart>cartList =  new ArrayList<>();
-        cartList = cartDao.getAllCarts(auth.getEmail());
-          request.setAttribute("cartList", cartList);
-          System.out.println("cartList is+++"+cartList);
-          RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
-        rd.forward(request, response);
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -59,12 +49,26 @@ public class GetAllCarts extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+            
+            String productID = request.getParameter("productID");
+            ProductDao pd = new ProductDao();
+            if (pd.deleteProduct(Integer.parseInt(productID))) {
+                System.out.println("Delelte Student sucessfully.");
+                response.sendRedirect("admin.jsp");
+            } else {
+                System.out.println("Delete unsuccessfully. Log at DeleteStudentSerlvet.");
+            }
+        } catch (Error ex) {
+            System.out.println("Err"+ex.getMessage());
+        }
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -72,12 +76,13 @@ public class GetAllCarts extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
