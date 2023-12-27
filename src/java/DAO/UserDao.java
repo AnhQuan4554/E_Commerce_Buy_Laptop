@@ -40,16 +40,18 @@ public class UserDao extends DbCon {
              try {
                  
             // Query để chèn một người dùng mới vào cơ sở dữ liệu
-        query = "INSERT INTO `ecommerce`.`users` (`name`, `email`, `password`, `phone`, `role`)  VALUES (?,?, ?, ?, ?)";
+        query = "INSERT INTO `ecommerce`.`users` (`name`, `birthday`, `email`, `address`, `password`, `phone`, `role`)  VALUES (?, ?, ?, ?, ?, ?, ?)";
       
                
        
             pst = con.prepareStatement(query);
             pst.setString(1, newUser.getName());
-            pst.setString(2, newUser.getEmail());
-            pst.setString(3, newUser.getPassword());
-            pst.setString(4, newUser.getPhone());
-            pst.setString(5, newUser.getRole());
+            pst.setString(2, newUser.getBirthday());
+            pst.setString(3, newUser.getEmail());
+            pst.setString(4, newUser.getAddress());
+            pst.setString(5, newUser.getPassword());
+            pst.setString(6, newUser.getPhone());
+            pst.setString(7, newUser.getRole());
             // Thực hiện câu lệnh SQL để chèn dữ liệu vào cơ sở dữ liệu
             int rowsAffected = pst.executeUpdate();
 
@@ -63,5 +65,17 @@ public class UserDao extends DbCon {
             System.out.print(e);
         }
         return success;
+    }
+    public boolean isEmailExists(String email) {
+        try {
+            query = "SELECT * FROM users WHERE email=?";
+            pst = con.prepareStatement(query);
+            pst.setString(1, email);
+            rs = pst.executeQuery();
+            return rs.next(); // Nếu có ít nhất một kết quả, email tồn tại
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+            return false;
+        }
     }
 }
