@@ -24,19 +24,20 @@ public class LoginServlet extends HttpServlet {
 		try (PrintWriter out = response.getWriter()) {
 			String email = request.getParameter("login-email");
 			String password = request.getParameter("login-password");
-
-			UserDao udao = new UserDao(DbCon.getConnection());
+                   
+			UserDao udao = new UserDao();
 			User user = udao.userLogin(email, password);
 			if (user != null) {
+                            
 				request.getSession().setAttribute("auth", user);
-//				System.out.print("user logged in");
 				response.sendRedirect("index.jsp");
 			} else {
+                            // creat value global contain 
 				out.println("there is no user");
 			}
-
-		} catch (ClassNotFoundException|SQLException e) {
-			e.printStackTrace();
+                           
+		} catch (Error e) {
+                    System.out.println("ERR WHEN LOGIN"+e);
 		} 
 
 	}
