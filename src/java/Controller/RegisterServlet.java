@@ -75,24 +75,43 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
+        String birthday = request.getParameter("birthday");
         String email = request.getParameter("email");
+        String address = request.getParameter("address");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
         String phone = request.getParameter("phone");
         String role = request.getParameter("role");
-        User newUser = new User(name, email, password, phone, role);
+        User newUser = new User(name, birthday, email, address, password, phone, role);
 
+        // Kiểm tra xác nhận mật khẩu
+        if (!password.equals(confirmPassword)) {
+            // Mật khẩu và mật khẩu xác nhận không khớp
+            String errorMessage = "Password and Confirm Password do not match.";
+            request.setAttribute("errorMessage1", errorMessage);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
         // Gọi phương thức userRegister từ UserDao để đăng ký người dùng mới
         UserDao userDao = new UserDao(); // Hoặc thay thế bằng cách inject dependency
         boolean registrationStatus;
         try {
-            registrationStatus = userDao.userRegister(newUser);
-            if (registrationStatus) {
-                System.out.println("Register success");
-
-            response.sendRedirect("login.jsp"); // Thay thế bằng trang mong muốn
+            if (userDao.isEmailExists(email)) {
+                // Nếu email đã tồn tại, gửi thông báo lỗi về trang đăng ký
+                request.setAttribute("errorMessage", "Email already exists. Please choose another one.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+                dispatcher.forward(request, response);
             } else {
-                System.out.println("Register false");
-//            response.sendRedirect("registrationFailed.jsp"); // Thay thế bằng trang mong muốn
+                // Nếu email chưa tồn tại, tiến hành đăng ký
+                registrationStatus = userDao.userRegister(newUser);
+                if (registrationStatus) {
+                    System.out.println("Register success");
+                    response.sendRedirect("registersuccess.jsp");
+                } else {
+                    System.out.println("Register false");
+                    //response.sendRedirect("registrationFailed.jsp");
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
