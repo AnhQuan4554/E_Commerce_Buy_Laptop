@@ -42,19 +42,21 @@ ProductDao pd = new ProductDao();
                 <c:if test="${not empty products}">
                     <c:forEach var="p" items="${products}">
                         <div class="col-md-3 my-3">
-                            <div class="card w-100">
-                                <img class="card-img-top" src="product-image/${p.image}" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">${p.name}</h5>
-                                    <h6 class="price">Price: $${p.price}</h6>
-                                    <h6 class="category">Category: ${p.category}</h6>
-                                    <div class="mt-3 d-flex justify-content-between">
-                                        <a class="btn btn-dark" 
-                                           href="add-to-cart?id=${p.id}&name=${p.name}&price=${p.price}&category=${p.category}&image=${p.image}">Add to Cart</a>
-                                        <a class="btn btn-primary" href="order-now?quantity=1&id=${p.id}">Buy Now</a>
+                            <a href="/products?id=${p.id}">
+                                <div class="card w-100">
+                                    <img class="card-img-top" src="product-image/${p.image}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${p.name}</h5>
+                                        <h6 class="price">Price: $${p.price}</h6>
+                                        <h6 class="category">Category: ${p.category}</h6>
+                                        <div class="mt-3 d-flex justify-content-between">
+                                            <a class="btn btn-dark" 
+                                               href="/add-to-cart?id=${p.id}&name=${p.name}&price=${p.price}&category=${p.category}&image=${p.image}">Add to Cart</a>
+                                            <a class="btn btn-primary" href="order-now?quantity=1&id=${p.id}">Buy Now</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </c:forEach>
                 </c:if>

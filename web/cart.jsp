@@ -64,7 +64,8 @@ DecimalFormat dcf = new DecimalFormat("#.##");
                                         <input type="text" name="quantity" class="form-control" value="${c.quantity}" readonly>
                                         <a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=${c.id}"><i class="fas fa-minus-square"></i></a>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-sm">Buy</button>
+                                    <a class="btn btn-primary" href="order-now?quantity=${c.quantity}&id=${c.id}">Buy Now</a>
+                                   
                                 </form>
                             </td>
                             <td><a href="remove-from-cart?id=${c.id}" class="btn btn-sm btn-danger">Remove</a></td>

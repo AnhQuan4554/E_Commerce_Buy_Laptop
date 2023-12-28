@@ -23,7 +23,9 @@ public class AddToCartServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         User auth = (User) request.getSession().getAttribute("auth");
         if (auth == null) {
+            
             response.sendRedirect("login_require.jsp");
+            return ;
         }
         try ( PrintWriter out = response.getWriter()) {
 

@@ -25,7 +25,7 @@ public class OrderDao extends DbCon {
             pst = con.prepareStatement(query);
             pst.setInt(1, model.getId());
             pst.setInt(2, model.getUid());
-            pst.setInt(3, model.getQunatity());
+            pst.setInt(3, model.getQuantity());
             pst.setString(4, model.getDate());
             pst.executeUpdate();
             result = true;
@@ -37,6 +37,7 @@ public class OrderDao extends DbCon {
 
     public List<Order> userOrders(int id) {
         List<Order> list = new ArrayList<>();
+      
         try {
             query = "select * from orders where u_id=? order by orders.o_id desc";
             pst = con.prepareStatement(query);
@@ -44,18 +45,14 @@ public class OrderDao extends DbCon {
             rs = pst.executeQuery();
             while (rs.next()) {
                 Order order = new Order();
-                ProductDao productDao = new ProductDao();
-                int pId = rs.getInt("p_id");
-                Product product = productDao.getSingleProduct(pId);
-                order.setOrderId(rs.getInt("o_id"));
-                order.setId(pId);
-                order.setName(product.getName());
-                order.setCategory(product.getCategory());
-                order.setPrice(product.getPrice() * rs.getInt("o_quantity"));
-                order.setQunatity(rs.getInt("o_quantity"));
-                order.setDate(rs.getString("o_date"));
+               order.setId(rs.getInt("o_id"));
+               order.setDate(rs.getString("o_date"));
+               order.setName("111");
+               order.setCategory("111");
+               order.setQuantity(rs.getInt("o_quantity"));
                 list.add(order);
             }
+           
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

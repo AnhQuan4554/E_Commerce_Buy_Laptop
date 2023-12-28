@@ -68,7 +68,8 @@ public class UpdateProductServlet extends HttpServlet {
                 System.out.println("Error find Product. Log in UpdateProductServlet.");
             } else {
                 request.setAttribute("product", product);
-                request.getRequestDispatcher("admin_handle_product.jsp").forward(request, response);
+                       request.getRequestDispatcher("admin/admin_handle_product.jsp").forward(request, response);
+
             }
         } catch (Error ex) {
             System.out.println("err"+ex.getMessage());
@@ -106,7 +107,7 @@ public class UpdateProductServlet extends HttpServlet {
                Product product = new Product(Integer.parseInt(idProduct),nameProduct,category, Double.parseDouble(priceProduct),fileName);
                 if(pd.updateProduct(product)) {
                     System.out.println("Update successfully!");
-                    response.sendRedirect("/admin.jsp");
+                    response.sendRedirect("admin/admin.jsp");
                 } else {
                     System.out.println("Update unsucessfully!");
                 }

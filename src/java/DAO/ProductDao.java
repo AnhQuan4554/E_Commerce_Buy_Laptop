@@ -38,28 +38,33 @@ public class ProductDao extends DbCon {
         }
         return book;
     }
-      public boolean addProduct(Product product) {
+
+    public boolean addProduct(Product product) {
         try {
-            String sql = "INSERT INTO products(id, name, category, price, image) Values(?,?,?,?,?)";
+            String sql = "INSERT INTO products(id, name, category, price, image,status,guarantee,description,gpu) Values(?,?,?,?,?,?,?,?,?)";
             PreparedStatement pst = this.con.prepareStatement(sql);
             pst.setInt(1, product.getId());
             pst.setString(2, product.getName());
             pst.setString(3, product.getCategory());
             pst.setDouble(4, product.getPrice());
             pst.setString(5, product.getImage());
-         
+            pst.setString(6, product.getStatus());
+            pst.setString(7, product.getGuarantee());
+            pst.setString(8, product.getDescription());
+            pst.setString(9, product.getGpu());
+            
             pst.executeUpdate();
             return true;
 
-        }
-        catch(SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Can not add Product)" + ex);
             return false;
         }
-      
-    } 
-          public Product findProduct(int productID) {
+
+    }
+
+    public Product findProduct(int productID) {
         try {
             query = "SELECT * FROM products WHERE id = '" + productID + "';";
             pst = this.con.prepareStatement(query);
@@ -68,10 +73,14 @@ public class ProductDao extends DbCon {
             if (rs.next()) {
                 Product product = new Product();
                 product.setId(rs.getInt(1));
-                 product.setName(rs.getString(2));
-                 product.setCategory(rs.getString(3));
-                 product.setPrice(rs.getDouble(4));
-                 product.setImage(rs.getString(5));
+                product.setName(rs.getString(2));
+                product.setCategory(rs.getString(3));
+                product.setPrice(rs.getDouble(4));
+                product.setImage(rs.getString(5));
+                product.setStatus(rs.getString(6));
+                product.setGuarantee(rs.getString(7));
+                product.setDescription(rs.getString(8));
+                product.setGpu(rs.getString(9));
                 return product;
             } else {
                 return null;
@@ -81,23 +90,23 @@ public class ProductDao extends DbCon {
             return null;
         }
     }
-      public boolean updateProduct(Product product) {
+
+    public boolean updateProduct(Product product) {
         try {
             String sql = "UPDATE products SET "
                     + "name = ?,"
                     + "category = ?,"
                     + "price = ?,"
                     + "image = ?"
-                    + "WHERE id = ?;"
-                    ;
-           PreparedStatement pst = this.con.prepareStatement(sql);
-           
+                    + "WHERE id = ?;";
+            PreparedStatement pst = this.con.prepareStatement(sql);
+
             pst.setString(1, product.getName());
             pst.setString(2, product.getCategory());
             pst.setDouble(3, product.getPrice());
             pst.setString(4, product.getImage());
             pst.setInt(5, product.getId());
-           
+
             pst.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -106,22 +115,20 @@ public class ProductDao extends DbCon {
             return false;
         }
     }
-        
-         
+
     public boolean deleteProduct(int productId) {
         try {
             String sql = "DELETE FROM products where id = '" + productId + "'";
             PreparedStatement pst = this.con.prepareStatement(sql);
             pst.executeUpdate();
             return true;
-        }
-        catch(SQLException e) {
-           e.printStackTrace();
-	   System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
             return false;
         }
     }
-    
+
     public Product getSingleProduct(int id) {
         Product row = null;
         try {
@@ -170,7 +177,7 @@ public class ProductDao extends DbCon {
         return sum;
     }
 
-    /// handle get product deepend on condition 
+    /// handle get product deepend on condition
     public List<Product> getProductsByPrice(String sortType) {
         List<Product> productList = new ArrayList<>();
         try {
@@ -184,7 +191,7 @@ public class ProductDao extends DbCon {
             }
 
             pst = con.prepareStatement(query);
-            
+
             rs = pst.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
@@ -211,7 +218,7 @@ public class ProductDao extends DbCon {
             }
 
             pst = con.prepareStatement(query);
-           
+
             if (category != null && !category.isEmpty()) {
                 pst.setString(1, category);
             }
@@ -231,7 +238,7 @@ public class ProductDao extends DbCon {
             System.out.println(e.getMessage());
         }
         return productList;
-       
+
     }
 
 }

@@ -61,11 +61,11 @@ ProductDao pd = new ProductDao();
                                     <td><%=p.getImage() %></td>
                                     <td>
                                          <% 
-                                           out.print("<a class='btn btn-outline-primary' href='updateProduct?title=Edit+Product&action=updateProduct&productID="+p.getId()+"'>Update</a>");
+                                           out.print("<a class='btn btn-outline-primary' href='/updateProduct?title=Edit+Product&action=updateProduct&productID="+p.getId()+"'>Update</a>");
                                         %>
                                      
                                         <% 
-                                           out.print("<a class='btn btn-outline-danger' href='deleteProduct?productID="+p.getId()+"'>Delete</a>");
+                                           out.print("<a class='btn btn-outline-danger' href='/deleteProduct?productID="+p.getId()+"'>Delete</a>");
                                         %>
                                        
                                     </td>
