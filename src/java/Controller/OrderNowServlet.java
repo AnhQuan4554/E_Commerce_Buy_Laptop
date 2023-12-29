@@ -47,7 +47,7 @@ public class OrderNowServlet extends HttpServlet {
                 OrderDao orderDao = new OrderDao();
                 boolean result = orderDao.insertOrder(orderModel);
                 if(result){
-                      response.sendRedirect("orders.jsp");
+                      response.sendRedirect("notify/addSuccess.jsp");
                 }
             } else {
                  response.sendRedirect("login_require.jsp");

@@ -28,6 +28,8 @@ public class AddToCartServlet extends HttpServlet {
             return ;
         }
         try ( PrintWriter out = response.getWriter()) {
+            
+            int p_id = Integer.parseInt(request.getParameter("id"));
 
             String name = request.getParameter("name");
 
@@ -39,7 +41,7 @@ public class AddToCartServlet extends HttpServlet {
             if (auth.getEmail() == "" || auth.getEmail() == null) {
 //             Cart cart = new Cart(name,category,price, image, 1, "");
             } else {
-                Cart cart = new Cart(name, category, price, image, 1, auth.getEmail());
+                Cart cart = new Cart(p_id,name, category, price, image, 1, auth.getEmail());
                 CartDao cartDao = new CartDao();
                 boolean check = cartDao.addCart(cart);
                 if (check) {

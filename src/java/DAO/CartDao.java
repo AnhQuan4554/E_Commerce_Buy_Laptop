@@ -51,14 +51,16 @@ public class CartDao extends DbCon {
                 }
             } 
             else {
-                String query = "INSERT INTO carts (name,category,price, image, quantity, email) VALUES (?,?, ?, ?,?,?)";
+                String query = "INSERT INTO carts (p_id,name,category,price, image, quantity, email) VALUES (?,?,?, ?, ?,?,?)";
                 PreparedStatement pst = con.prepareStatement(query);
-                pst.setString(1, cart.getName());
-                pst.setString(2, cart.getCategory());
-                pst.setDouble(3, cart.getPrice());
-                pst.setString(4, cart.getImage());
-                pst.setInt(5, cart.getQuantity());
-                pst.setString(6, cart.getEmail());
+//                System.out.println("id when add++"+cart.getP_id());
+                pst.setInt(1, cart.getP_id());
+                pst.setString(2, cart.getName());
+                pst.setString(3, cart.getCategory());
+                pst.setDouble(4, cart.getPrice());
+                pst.setString(5, cart.getImage());
+                pst.setInt(6, cart.getQuantity());
+                pst.setString(7, cart.getEmail());
 
                 int rowsAffected = pst.executeUpdate();
 
@@ -85,6 +87,7 @@ public class CartDao extends DbCon {
             while (rs.next()) {
                 Cart cart = new Cart();
                 cart.setId(rs.getInt("id"));
+                cart.setP_id(rs.getInt("p_id"));
                 cart.setName(rs.getString("name"));
                 cart.setCategory(rs.getString("category"));
                 cart.setPrice(rs.getDouble("price"));
@@ -96,6 +99,7 @@ public class CartDao extends DbCon {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
+         System.out.println("cart list+++"+cartList);
         return cartList;
     }
 }

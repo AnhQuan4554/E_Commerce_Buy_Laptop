@@ -32,6 +32,10 @@
         <servlet-name>DeleteProduct</servlet-name>
         <servlet-class>Admin_Controller.DeleteProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetAllOrder</servlet-name>
+        <servlet-class>Controller.GetAllOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>DeleteProduct</servlet-name>
         <url-pattern>/DeleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAllOrder</servlet-name>
+        <url-pattern>/GetAllOrder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -24,7 +24,7 @@
                 <li class="nav-item"><a class="nav-link" href="/get-all-carts">Cart <span class="badge badge-danger">${cart_list.size()}</span> </a></li>
                     <c:choose>
                         <c:when test="${2 > 1}">
-                        <li class="nav-item"><a class="nav-link" href="/orders.jsp">Orders</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/get-all-orders">Orders</a></li>
                         <li class="nav-item"><a class="nav-link" href="/log-out">Logout</a></li>
                         </c:when>
                         <c:otherwise>

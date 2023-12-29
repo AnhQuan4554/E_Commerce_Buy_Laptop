@@ -9,7 +9,7 @@
          pageEncoding="ISO-8859-1"%>
 <%
 DecimalFormat dcf = new DecimalFormat("#.##");
-//request.setAttribute("dcf", dcf);
+request.setAttribute("dcf", dcf);
 //User auth = (User) request.getSession().getAttribute("auth");
 //if (auth != null) {
 //    request.setAttribute("person", auth);
@@ -60,15 +60,15 @@ DecimalFormat dcf = new DecimalFormat("#.##");
                                 <form action="order-now" method="post" class="form-inline">
                                     <input type="hidden" name="id" value="${c.id}" class="form-input">
                                     <div class="form-group d-flex justify-content-between">
-                                        <a class="btn bnt-sm btn-incre" href="quantity-inc-dec?action=inc&id=${c.id}"><i class="fas fa-plus-square"></i></a>
+                                        <a class="btn bnt-sm btn-incre" href="/quantity-inc-dec?action=inc&id=${c.id}"><i class="fas fa-plus-square"></i></a>
                                         <input type="text" name="quantity" class="form-control" value="${c.quantity}" readonly>
-                                        <a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=${c.id}"><i class="fas fa-minus-square"></i></a>
+                                        <a class="btn btn-sm btn-decre" href="/quantity-inc-dec?action=dec&id=${c.id}"><i class="fas fa-minus-square"></i></a>
                                     </div>
-                                    <a class="btn btn-primary" href="order-now?quantity=${c.quantity}&id=${c.id}">Buy Now</a>
+                                    <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&id=${c.p_id}">Buy Now</a>
                                    
                                 </form>
                             </td>
-                            <td><a href="remove-from-cart?id=${c.id}" class="btn btn-sm btn-danger">Remove</a></td>
+                            <td><a href="/remove-from-cart?id=${c.id}" class="btn btn-sm btn-danger">Remove</a></td>
                         </tr>
                     </c:forEach>
 
