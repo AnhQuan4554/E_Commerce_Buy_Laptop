@@ -24,6 +24,16 @@ public class User {
 
     }
 
+//    public User(String name, String email, String phone, String birthday, String address) {
+//
+//        this.name = name;
+//        this.email = email;
+//        this.phone = phone;
+//        this.address = address;
+//        this.birthday = birthday;
+//        
+//    }
+    
     public User(int id, String name, String email, String password, String phone, String role) {
         this.id = id;
         this.name = name;
@@ -45,7 +55,7 @@ public class User {
     }
     
     
-
+    
     
     
     public int getId() {
@@ -111,9 +121,6 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
-
- 
-    
     
     @Override
     public String toString() {

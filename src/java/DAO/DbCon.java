@@ -14,7 +14,7 @@ public class DbCon {
 //    }
      public static Connection con;//declare the connection
     private String username = "root";
-    private String password = "100502";
+    private String password = "ktklcd2705";
     //constructor
     public DbCon() {
         if (con == null) {

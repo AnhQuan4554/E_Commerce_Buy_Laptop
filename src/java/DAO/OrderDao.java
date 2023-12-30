@@ -51,7 +51,7 @@ public class OrderDao extends DbCon {
             order.setName(rs.getString("name"));
             order.setCategory(rs.getString("category"));
             order.setQuantity(rs.getInt("o_quantity"));
-            order.setPrice(rs.getDouble("price")*rs.getInt("o_quantity"));
+//            order.setPrice(rs.getDouble("price")*rs.getInt("o_quantity"));
             list.add(order);
         }
 //        System.out.println("list+++"+list);

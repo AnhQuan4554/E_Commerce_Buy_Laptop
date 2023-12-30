@@ -1,7 +1,10 @@
 package DAO;
 
+import static DAO.DbCon.con;
 import java.sql.*;
 import Model.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao extends DbCon {
     
@@ -65,6 +68,30 @@ public class UserDao extends DbCon {
         return success;
     }
 
+    public List<User> getAllClients() {
+        List<User> clients = new ArrayList<>();
+        try {
+            query = "select * from users where role = 0 OR role IS NULL"; // sửa lại câu này
+            pst = con.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                User row = new User();
+                row.setId(rs.getInt("id"));
+                row.setName(rs.getString("name"));
+                row.setBirthday(rs.getString("birthday"));
+                row.setAddress(rs.getString("address"));
+                row.setPhone(rs.getString("phone"));
+                row.setEmail(rs.getString("email"));
+                clients.add(row);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return clients;
+    }
+    
     public User getUser(String email) {
         User user = null;
         try {
@@ -87,18 +114,18 @@ public class UserDao extends DbCon {
         }
         return user;
     }
-    public boolean updateUser(int id, User updatedUser) {
+    public boolean updateUser(User updatedUser) {
     boolean updated = false;
     try {
-        query = "update users set name=?, email=?, address=?, birthday=?, phone=? where id=?";
+        query = "update users set name=?, email=?, address=?, birthday=?, phone=? where email=?";
         pst = con.prepareStatement(query);
         pst.setString(1, updatedUser.getName());
         pst.setString(2, updatedUser.getEmail());
         pst.setString(3, updatedUser.getAddress());
         pst.setString(4, updatedUser.getBirthday());
         pst.setString(5, updatedUser.getPhone());
-        pst.setInt(6, id);
-
+        pst.setString(6, updatedUser.getEmail());
+        System.out.println("query+++" + query);
         int rowsAffected = pst.executeUpdate();
         if (rowsAffected > 0) {
             updated = true;
@@ -109,6 +136,19 @@ public class UserDao extends DbCon {
     return updated;
 }
 
+    public boolean deleteClient(int clientID) {
+        try {
+            String sql = "DELETE FROM users where id = '" + clientID + "'";
+            PreparedStatement pst = this.con.prepareStatement(sql);
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
     public boolean isEmailExists(String email) {
         try {
             query = "SELECT * FROM users WHERE email=?";

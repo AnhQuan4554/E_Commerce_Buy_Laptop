@@ -36,6 +36,22 @@
         <servlet-name>GetAllOrder</servlet-name>
         <servlet-class>Controller.GetAllOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ClientServlet</servlet-name>
+        <servlet-class>Controller.ClientServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddClient</servlet-name>
+        <servlet-class>Admin_Controller.AddClient</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteClient</servlet-name>
+        <servlet-class>Admin_Controller.DeleteClient</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUserInfo</servlet-name>
+        <servlet-class>Controller.UpdateUserInfo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
@@ -71,6 +87,22 @@
     <servlet-mapping>
         <servlet-name>GetAllOrder</servlet-name>
         <url-pattern>/GetAllOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientServlet</servlet-name>
+        <url-pattern>/clients</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddClient</servlet-name>
+        <url-pattern>/add-client</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteClient</servlet-name>
+        <url-pattern>/DeleteClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserInfo</servlet-name>
+        <url-pattern>/update-user</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
