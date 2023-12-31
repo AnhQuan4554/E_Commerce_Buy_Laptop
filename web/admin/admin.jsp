@@ -22,7 +22,7 @@ ProductDao pd = new ProductDao();
 <!DOCTYPE html>
 <html>
     <head>
-       <%@include file="/includes/head.jsp"%>
+       	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <title>JSP Page</title>
     </head>
  <body>

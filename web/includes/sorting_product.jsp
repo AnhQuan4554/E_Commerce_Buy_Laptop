@@ -15,18 +15,27 @@
                 justify-content: space-between;
                 align-items: center;
                 background-color: #f2f2f2;
-                padding: 10px;
+                padding: 10px 380px;
                 border-radius: 5px;
             }
 
             .sorting-option {
                 position: relative;
+                width: 220px;
+                height:100%;
+                
+                display: flex;
+                justify-content: center;
             }
 
             .sorting-option > span {
                 margin-right: 10px;
             }
-
+            .sorting-option span {
+                text-align: center;
+                font-size: 16px;
+                font-weight: 600;
+            }
             .sorting-dropdown {
                 display: none;
                 position: absolute;
@@ -41,6 +50,7 @@
 
             .sorting-option:hover .sorting-dropdown {
                 display: block;
+                cursor: pointer;
             }
 
             .sorting-dropdown a {
@@ -48,25 +58,33 @@
                 padding: 5px;
                 color: #333;
                 text-decoration: none;
+                width: 200px;
+                text-align: center;
             }
 
             .sorting-dropdown a:hover {
                 background-color: #f2f2f2;
+                cursor: pointer;
             }
-
+            .sorting-option span:hover{
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
         <div class="sorting-controls">
             <div class="sorting-option">
-                <span>Giá:</span>
+                <span>Sort Laptops By:</span>
+            </div>
+            <div class="sorting-option">
+                <span>Price</span>
                 <div class="sorting-dropdown">
-                    <a href="/products?sort=lowToHigh">Thap den cao</a>
-                    <a href="/products?sort=highToLow">Cao den thap</a>
+                    <a href="/products?sort=lowToHigh">Low to High</a>
+                    <a href="/products?sort=highToLow">High to Low</a>
                 </div>
             </div>
             <div class="sorting-option">
-                <span>Theo hãng:</span>
+                <span>Company</span>
                 <div class="sorting-dropdown">
                     <a href="/products?category=acer" >Acer</a>
                     <a href="/products?category=dell" >Dell</a>
@@ -74,10 +92,10 @@
                 </div>
             </div>
             <div class="sorting-option">
-                <span>Top san pham ban chay:</span>
+                <span>Top Best Selling Laptops</span>
                 <div class="sorting-dropdown">
-                    <a href="/products?top=selling-by-week">Top ban chay theo tuan</a>
-                    <a href="/products?top=selling-by-month">Top ban chay theo thang</a>
+                    <a href="/products?top=selling-by-week">Top sellers by week</a>
+                    <a href="/products?top=selling-by-month">Top sellers by month</a>
 
                 </div>
             </div>

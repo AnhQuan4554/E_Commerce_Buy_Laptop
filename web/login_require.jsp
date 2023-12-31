@@ -55,6 +55,7 @@
     </style>
     </head>
     <body>
+        
          <div class="container">
         <h1>Login Required</h1>
         <p>You need to log in to access this page.</p>
