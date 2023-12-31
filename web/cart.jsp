@@ -9,7 +9,7 @@
          pageEncoding="ISO-8859-1"%>
 <%
 DecimalFormat dcf = new DecimalFormat("#.##");
-//request.setAttribute("dcf", dcf);
+request.setAttribute("dcf", dcf);
 //User auth = (User) request.getSession().getAttribute("auth");
 //if (auth != null) {
 //    request.setAttribute("person", auth);
@@ -145,10 +145,7 @@ DecimalFormat dcf = new DecimalFormat("#.##");
                         </td>
                         <td><a href="remove-from-cart?id=${c.id}" class="btn btn-danger">Remove</a></td>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+
 
     <%@include file="/includes/footer.jsp"%>
 </body>

@@ -3,11 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controller;
+package Admin_Controller;
 
-import DAO.CartDao;
-import Model.*;
-import jakarta.servlet.RequestDispatcher;
+import DAO.ProductDao;
+import DAO.UserDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,15 +14,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.*;
 
 /**
  *
- * @author welcome
+ * @author ASUS
  */
-
-@WebServlet("/get-all-carts")
-public class GetAllCarts extends HttpServlet {
+@WebServlet(name = "DeleteClientServlet", urlPatterns = {"/deleteClient"})
+public class DeleteClient extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,18 +31,19 @@ public class GetAllCarts extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        User auth = (User) request.getSession().getAttribute("auth");
-        
-        if(auth==null){
-          response.sendRedirect("login_require.jsp");
-          return;
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DeleteClient</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DeleteClient at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        CartDao cartDao = new CartDao();
-        List<Cart>cartList =  new ArrayList<>();
-        cartList = cartDao.getAllCarts(auth.getEmail());
-          request.getSession().setAttribute("cartList", cartList);
-          RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
-        rd.forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,7 +57,20 @@ public class GetAllCarts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+            
+            String id = request.getParameter("clientId");
+            UserDao ud = new UserDao();
+            if (ud.deleteClient(Integer.parseInt(id))) {
+                System.out.println("Delelte Student sucessfully.");
+                response.sendRedirect("manageClient.jsp");
+            } else {
+                System.out.println("Delete unsuccessfully. Log at DeleteStudentSerlvet.");
+            }
+        } catch (Error ex) {
+            System.out.println("Err"+ex.getMessage());
+        }
     } 
 
     /** 

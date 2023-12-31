@@ -25,7 +25,7 @@ public class CancelOrderServlet extends HttpServlet {
 				OrderDao orderDao = new OrderDao();
 				orderDao.cancelOrder(Integer.parseInt(id));
 			}
-			response.sendRedirect("orders.jsp");
+			response.sendRedirect("/notify/deleteSuccess.jsp");
 		} 
 	}
 
