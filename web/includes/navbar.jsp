@@ -142,7 +142,12 @@
                         <i class="fa-solid fa-user"></i>&nbsp;
                         Admin 
                     </a>
-                   <a class="navbar-brand" href="/manageClient.jsp">Client</a
+                    
+                      <a class="navbar-link-to " href="/manageClient.jsp">
+                        <i class="fa-solid fa-user"></i>&nbsp;
+                        Client 
+                    </a>
+                 
                 </c:when>
             </c:choose> 
         </div>               
@@ -167,7 +172,7 @@
             </a>
             <c:choose>
                 <c:when test="${2 > 1}">
-                    <a class="navbar-link-to1 " href="/orders.jsp">
+                    <a class="navbar-link-to1 " href="/get-all-orders">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <p>Orders</p>
                     </a>
@@ -203,4 +208,3 @@
 
 </body>
 </html>
-
