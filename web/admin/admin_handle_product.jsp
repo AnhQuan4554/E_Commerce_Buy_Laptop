@@ -1,5 +1,7 @@
-<%-- Document : admin_handle_product Created on : Dec 12, 2023, 12:35:38 PM
-Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Model.*"%>
+<%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,7 +9,7 @@ Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <title>JSP Page</title>
     <link rel="stylesheet" href="./css/style.css" />
     <style>
-      .form-select-input {
+      /* .form-select-input {
         padding: 4px 8px;
         margin-left: 8px;
         flex-grow: 1;
@@ -17,12 +19,39 @@ Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         outline: none;
         border: 1px solid #141e46;
         margin-left: 8px;
+      } */
+      .form-control {
+        margin: 0 auto;
+      }
+      .form-label {
+        text-align:left;
+      }
+      .form-input {
+        margin-left: 50px;
+        width: 200px;
+      }
+      .form-control input {
+      }
+      .form-btn {
+        background-color: #2b80dd;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+      }
+      h1 {
+        color: rgba(0,0,0,0.7);
       }
     </style>
   </head>
 
   <body>
-    <h1>${title}</h1>
+    <%@include file="/includes/navbar.jsp"%>
+
+    <center>
+      <h1>${title}</h1>
     <form
       action="/${action}"
       method="POST"
@@ -76,7 +105,7 @@ Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         />
       </div>
       <div class="form-control">
-        <label for="image">Status</label>
+        <label for="image">Status</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input
           class="form-input"
           type="text"
@@ -86,7 +115,7 @@ Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         />
       </div>
       <div class="form-control">
-        <label for="image">Guarantee</label>
+        <label for="image">Guarantee</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input
           class="form-input"
           type="text"
@@ -96,7 +125,7 @@ Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         />
       </div>
       <div class="form-control">
-        <label for="image">Description</label>
+        <label for="image">Description</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input
           class="form-input"
           type="text"
@@ -106,7 +135,7 @@ Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
         />
       </div>
         <div class="form-control">
-        <label for="gpu">Gpu</label>
+        <label for="gpu">Gpu</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input
           class="form-input"
           type="text"
@@ -117,5 +146,11 @@ Author : welcome --%> <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
       <button type="submit" class="form-btn submit-btn">${title}</button>
     </form>
+    <br>
+    <br>
+    </center>
+
+    <%@include file="/includes/footer.jsp"%>
+
   </body>
 </html>
