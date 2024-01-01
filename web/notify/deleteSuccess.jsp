@@ -1,39 +1,77 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Model.*"%>
+<%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Delete Product</title>
-    <style>
-        /* CSS styles */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Success</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
 
-        h1 {
-            text-align: center;
-            padding: 20px;
-            border: 2px solid #333;
-            border-radius: 5px;
-            background-color: #f2f2f2;
-        }
-        
-        a {
-            text-decoration: none;
-            color: blue;
-            margin-top: 20px;
-            display: block;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <h1>Delete Product Success</h1>
-    <a href="/get-all-orders">Order</a>
-</body>
+            .container {
+                display: flex;
+                justify-content: center;
+                /*            align-items: center;*/
+            }
+
+            .card {
+                text-align: center;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+                width: 800px;
+                margin-top: 30px;
+            }
+
+            .success-icon img {
+                width: 80px; /* ?i?u ch?nh k�ch th??c c?a ?nh */
+                height: auto;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                color: #28a745;
+                margin-bottom: 10px;
+            }
+
+            p {
+                color: #555;
+                margin-bottom: 20px;
+            }
+
+            a {
+                text-decoration: none;
+                color: #007bff;
+                font-weight: bold;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <%@include file="/includes/navbar.jsp"%>
+
+        <div class="container">
+            <div class="card">
+                <div class="success-icon">
+                    <img src="../image/success.png" alt="Success Image">
+                </div>
+                <h1>Delete Order Successful</h1>
+                <p>You can view <a href="/get-all-orders">ORDER</a> now!</p>
+            </div>
+        </div>
+
+        <%@include file="/includes/footer.jsp"%>
+    </body>
 </html>
