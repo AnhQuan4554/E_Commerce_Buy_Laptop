@@ -33,7 +33,7 @@
             }
 
             .success-icon img {
-                width: 80px; /* ?i?u ch?nh k�ch th??c c?a ?nh */
+                width: 80px; /* ?i?u ch?nh k?ch th??c c?a ?nh */
                 height: auto;
                 margin-bottom: 20px;
             }
@@ -68,7 +68,7 @@
                     <img src="../image/success.png" alt="Success Image">
                 </div>
                 <h1>Delete Order Successful</h1>
-                <p>You can view <a href="/get-all-orders">ORDER</a> now!</p>
+                <p>You can view <a href="/get-all-carts">Cart</a> now!</p>
             </div>
         </div>
 

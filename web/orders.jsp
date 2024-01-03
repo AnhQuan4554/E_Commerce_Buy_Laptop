@@ -11,31 +11,78 @@
 <%
 DecimalFormat dcf = new DecimalFormat("#.##");
 request.setAttribute("dcf", dcf);
-//         System.out.println("Ordersssss+++auth"+auth.getId());
-
-
 %>
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="/includes/head.jsp"%>
         <title>E-Commerce Cart</title>
+        <style type="text/css">
+            body {
+                font-family: "Roboto",sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .container-order {
+                width: 70%;
+                margin: 0 auto;
+            }
+
+            .card-header {
+                background-color: #f8f9fa;
+                padding: 10px;
+                font-weight: bold;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            .btn-danger {
+                background-color: #dc3545;
+                color: #fff;
+                border: none;
+                padding: 7px 10px;
+                /* width: 80px; */
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+
+            .btn-danger:hover {
+                background-color: #c82333;
+            }
+        </style>
     </head>
     <body>
         <%@include file="/includes/navbar.jsp"%>
-        <div class="container">
-            <div class="card-header my-3">All Orders</div>
-            <table class="table table-light">
+        <div class="container-order">
+            <div class="card-header my-3">ALL ORDERS</div>
+            <table>
                 <thead>
                     <tr>
-
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
                         <th scope="col">Date</th>
                         <th scope="col">Cancel</th>
-
                     </tr>
                 </thead>
                 <tbody>

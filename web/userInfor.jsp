@@ -1,7 +1,8 @@
 <%@page import="DAO.UserDao"%>
 <%@page import="Model.User"%>
 <%@page import="java.util.*"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <%
     User auth = (User) request.getSession().getAttribute("auth");
     if (auth != null) {
@@ -21,7 +22,7 @@
     <title>Update User Information</title>
     <style>
       /* CSS styles */
-      body {
+      /* body {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -29,40 +30,58 @@
         margin: 0;
         font-family: Arial, sans-serif;
         background-color: #f0f0f0;
-      }
+      } */
 
-      form {
-        width: 300px;
-        padding: 20px;
-        border: 2px solid #333;
-        border-radius: 5px;
-        background-color: #f2f2f2;
-      }
+      body {
+        font-family: "Roboto",sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-      input[type="text"],
-      input[type="email"] {
-        width: calc(100% - 20px);
-        margin-bottom: 10px;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
+        form {
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-      input[type="submit"] {
-        width: 100%;
-        background-color: #4caf50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
 
-      input[type="submit"]:hover {
-        background-color: #45a049;
-      }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #1e88e5;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1565c0;
+        }
     </style>
     <script>
       function validateForm() {
@@ -100,8 +119,11 @@
     </script>
   </head>
   <body>
+
+    <%@include file="/includes/navbar.jsp"%>
+
     <form action="/updateUser" method="POST" onsubmit="return validateForm()">
-      <h1>User Information</h1>
+      <h1>USER INFORMATION</h1>
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" value="${currentUser.getName()}" />
 
@@ -120,4 +142,5 @@
       <input type="submit" value="Update" />
     </form>
   </body>
+  <%@include file="/includes/footer.jsp"%>
 </html>
