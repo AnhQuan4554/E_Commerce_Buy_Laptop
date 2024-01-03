@@ -61,9 +61,9 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String id = request.getParameter("id");
         String sortType = request.getParameter("sort");
-                String category = request.getParameter("category");
+        String category = request.getParameter("category");
 
         if (sortType != null) {
             sortType = sortType.toLowerCase();
@@ -71,17 +71,34 @@ public class ProductServlet extends HttpServlet {
             List<Product> products = new ArrayList<>();
             products = proDao.getProductsByPrice(sortType);
             request.getSession().setAttribute("products", products);
-             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);
-        }else if(category != null){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
+        } else if (category != null) {
             ProductDao proDao = new ProductDao();
             List<Product> products = new ArrayList<>();
             products = proDao.getProductsByCategory(category);
-            System.out.println("11222"+products);
+
             request.getSession().setAttribute("products", products);
-             System.out.println("products+++"+ request.getSession().getAttribute("category")+"1111");
-             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-               dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
+        } else if (id != null) {
+            ProductDao proDao = new ProductDao();
+            Product productDetail = proDao.findProduct(Integer.parseInt(id));
+            List<String> gpu = new ArrayList<>();
+            String gpuData = productDetail.getGpu();
+            System.out.println("gpuData"+gpuData);
+            if (gpuData != null && !gpuData.isEmpty()) {
+                String[] arrayOfStrings = gpuData.split(";");
+                for (String str : arrayOfStrings) {
+                    System.out.println("str+++++"+str);
+                    gpu.add(str);
+                }
+            }
+
+            request.setAttribute("productDetail", productDetail);
+            request.setAttribute("gpu", gpu);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/detailProduct.jsp");
+            dispatcher.forward(request, response);
         }
 
     }

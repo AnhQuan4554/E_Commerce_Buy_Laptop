@@ -12,7 +12,7 @@
        <title>Login Required</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Roboto",sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -55,6 +55,7 @@
     </style>
     </head>
     <body>
+        
          <div class="container">
         <h1>Login Required</h1>
         <p>You need to log in to access this page.</p>

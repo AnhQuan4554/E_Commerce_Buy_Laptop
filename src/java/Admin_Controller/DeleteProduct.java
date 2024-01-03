@@ -57,7 +57,7 @@ public class DeleteProduct extends HttpServlet {
             ProductDao pd = new ProductDao();
             if (pd.deleteProduct(Integer.parseInt(productID))) {
                 System.out.println("Delelte Student sucessfully.");
-                response.sendRedirect("admin.jsp");
+                response.sendRedirect("admin/admin.jsp");
             } else {
                 System.out.println("Delete unsuccessfully. Log at DeleteStudentSerlvet.");
             }
