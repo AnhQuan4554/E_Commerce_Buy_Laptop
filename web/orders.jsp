@@ -18,14 +18,18 @@ request.setAttribute("dcf", dcf);
         <title>E-Commerce Cart</title>
         <style type="text/css">
             body {
+
                 font-family: "Roboto",sans-serif;
+
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
 
             .container-order {
+
                 width: 70%;
+
                 margin: 0 auto;
             }
 
@@ -55,8 +59,10 @@ request.setAttribute("dcf", dcf);
                 background-color: #dc3545;
                 color: #fff;
                 border: none;
+
                 padding: 7px 10px;
                 /* width: 80px; */
+
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
@@ -73,7 +79,9 @@ request.setAttribute("dcf", dcf);
     <body>
         <%@include file="/includes/navbar.jsp"%>
         <div class="container-order">
+
             <div class="card-header my-3">ALL ORDERS</div>
+
             <table>
                 <thead>
                     <tr>
