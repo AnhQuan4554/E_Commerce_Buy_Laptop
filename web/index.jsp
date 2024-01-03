@@ -33,7 +33,7 @@ ProductDao pd = new ProductDao();
         <title>E-Commerce Cart</title>
         <style>
             body {
-                font-family: 'Arial', sans-serif;
+                font-family: "Roboto",sans-serif;
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
@@ -98,11 +98,11 @@ ProductDao pd = new ProductDao();
             }
 
             .card-img-top {
-                width: 100%;
+                width: 75%;
                 height: 200px;
                 object-fit: cover;
                 margin-top:20px;
-
+                margin-left: 40px;
             }
 
             .card-body {
@@ -113,7 +113,7 @@ ProductDao pd = new ProductDao();
             }
 
             .card-title {
-                font-size: 16px;
+                font-size: 15px;
                 text-decoration: none;
                 text-align: center;
                 height: 65px;

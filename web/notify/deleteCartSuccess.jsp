@@ -5,13 +5,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="/includes/head.jsp"%>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registration Success</title>
         <style>
             body {
-                font-family: "Roboto",sans-serif;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 background-color: #f4f4f4;
                 margin: 0;
                 padding: 0;
@@ -34,7 +33,7 @@
             }
 
             .success-icon img {
-                width: 80px; /* ?i?u ch?nh k�ch th??c c?a ?nh */
+                width: 80px; /* ?i?u ch?nh k?ch th??c c?a ?nh */
                 height: auto;
                 margin-bottom: 20px;
             }
@@ -66,11 +65,10 @@
         <div class="container">
             <div class="card">
                 <div class="success-icon">
-                    <img src="./image/success.png" alt="Success Image">
+                    <img src="../image/success.png" alt="Success Image">
                 </div>
-                <h1>Registration Successful</h1>
-                <p>Congratulations! Your registration was successful.</p>
-                <p>You can now <a href="login.jsp">LOGIN</a> to your account.</p>
+                <h1>Delete Order Successful</h1>
+                <p>You can view <a href="/get-all-carts">Cart</a> now!</p>
             </div>
         </div>
 

@@ -88,7 +88,7 @@ public class UpdateUserInfo extends HttpServlet {
             System.out.println("newUser+++" + newUser);
             if (ud.updateUser(newUser)) {
                 System.out.println("Update successfully!");
-                response.sendRedirect("manageClient.jsp");
+                response.sendRedirect("index.jsp");
             } else {
                 System.out.println("Update unsucessfully!");
             }

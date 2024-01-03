@@ -13,7 +13,7 @@
         <style>
             /* CSS inline styles here or link to your CSS file */
             body {
-                font-family: Roboto, sans-serif;
+                font-family: "Roboto",sans-serif;
                 margin: 0;
                 padding: 0;
             }
@@ -131,25 +131,31 @@
             }
             .specs ul {
                 width: 80%;
-                height: 50px;
-                border: 1px solid rgba(0,0,0,0.1);
                 padding-inline-start: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-left: 40px;
-                background-color: #f7f7f7;
-                border-radius:5px;
-                padding: 0 10px;
+                margin-left: 50px;
+                flex-wrap: wrap;
             }
-            .specs ul:hover {
+            .gpu-name:hover {
                 cursor: pointer;
                 background-color: #2b80dd;
                 color: #fff;
             }
             .gpu-name {
+                width: 40%;
+                min-height: 100px;
                 list-style: none;
                 text-align: center;
+                background-color: #f7f7f7;
+                border-radius:5px;
+                padding: 0 10px;
+                border: 1px solid rgba(0,0,0,0.1);
+                margin: 5px 5px;
+                display: flex;
+                align-items: center;
+                font-size: 15px;
             }
             .product-present{
                 width: 80%;
@@ -247,6 +253,12 @@
                 border: 1px solid rgba(0,0,0,0.1);
                 margin-top: 30px;
             }
+            .product-img-des img{
+                width: 800px;
+            }
+            .logo-img3 {
+                
+            }
         </style>
     </head>
     <body>
@@ -267,7 +279,7 @@
                     <p class="product-gua">Guarantee: <c:if test="${not empty productDetail.guarantee}">${productDetail.guarantee}</c:if></p>
                         <div class="specs">
                             <h4>Configuration:</h4>
-                            <ul>
+                            <ul class="specs-ul">
                             <c:if test="${not empty gpu}">
                                 <c:forEach var="gpu" items="${gpu}">
                                     <li class="gpu-name"> ${gpu}</li>
@@ -303,7 +315,9 @@
                             <a  href="/add-to-cart?id=${productDetail.id}&name=${productDetail.name}&price=${productDetail.price}&category=${productDetail.category}&image=${productDetail.image}">Add to Cart</a>
                         </button>
                         <br>
-                        <button class="btn-cart" onclick="addToCart(${productDetail.id})">Buy now</button>
+                        <button class="btn-cart">
+                            <a  href="order-now?quantity=1&id=${p.id}">Buy Now</a>
+                        </button>
                     </div>
                 </div>
                 <div class="product-policy">
