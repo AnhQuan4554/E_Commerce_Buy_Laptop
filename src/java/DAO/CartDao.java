@@ -25,17 +25,18 @@ public class CartDao extends DbCon {
 
     public boolean addCart(Cart cart) {
         boolean success = false;
-        
+
         try {
             String selectQuery = "SELECT * FROM carts WHERE email = ? AND name = ?";
             PreparedStatement selectPst = con.prepareStatement(selectQuery);
             selectPst.setString(1, cart.getEmail());
             selectPst.setString(2, cart.getName());
             ResultSet rsSelect = selectPst.executeQuery();
-           
+
             if (rsSelect.next()) {
-               
-                // Nếu sản phẩm đã tồn tại trong giỏ hàng của người dùng, thực hiện cập nhật số lượng
+
+                // Nếu sản phẩm đã tồn tại trong giỏ hàng của người dùng, thực hiện cập nhật số
+                // lượng
                 int existingQuantity = rsSelect.getInt("quantity");
                 int newQuantity = existingQuantity + 1; // Tăng số lượng sản phẩm lên 1
                 String updateQuery = "UPDATE carts SET quantity = ? WHERE email = ? AND name = ?";
@@ -49,11 +50,10 @@ public class CartDao extends DbCon {
                     System.out.println("Quantity updated successfully for: " + cart.getName());
                     success = true;
                 }
-            } 
-            else {
+            } else {
                 String query = "INSERT INTO carts (p_id,name,category,price, image, quantity, email) VALUES (?,?,?, ?, ?,?,?)";
                 PreparedStatement pst = con.prepareStatement(query);
-//                System.out.println("id when add++"+cart.getP_id());
+                // System.out.println("id when add++"+cart.getP_id());
                 pst.setInt(1, cart.getP_id());
                 pst.setString(2, cart.getName());
                 pst.setString(3, cart.getCategory());
@@ -77,10 +77,11 @@ public class CartDao extends DbCon {
         }
         return success;
     }
-     public List<Cart> getAllCarts(String email) {
+
+    public List<Cart> getAllCarts(String email) {
         List<Cart> cartList = new ArrayList<>();
         try {
-               String query = "SELECT * FROM carts WHERE email = ?";
+            String query = "SELECT * FROM carts WHERE email = ?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, email);
             ResultSet rs = pst.executeQuery();
@@ -99,7 +100,25 @@ public class CartDao extends DbCon {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-         System.out.println("cart list+++"+cartList);
+        System.out.println("cart list+++" + cartList);
         return cartList;
     }
+
+    public void removeFromCart(int cartId) {
+        try {
+            String query = "DELETE FROM carts WHERE id = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, cartId);
+            int rowsDeleted = pst.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Product removed from cart successfully!");
+            } else {
+                System.out.println("No product found with the provided ID in the cart.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

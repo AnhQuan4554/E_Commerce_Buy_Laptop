@@ -58,13 +58,13 @@ public class DeleteClient extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         try {
-            processRequest(request, response);
+           
             
             String id = request.getParameter("clientId");
             UserDao ud = new UserDao();
             if (ud.deleteClient(Integer.parseInt(id))) {
                 System.out.println("Delelte Student sucessfully.");
-                response.sendRedirect("manageClient.jsp");
+                response.sendRedirect("/notify/deleteClientSuccess.jsp");
             } else {
                 System.out.println("Delete unsuccessfully. Log at DeleteStudentSerlvet.");
             }
@@ -83,7 +83,7 @@ public class DeleteClient extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+           response.sendRedirect("/deleteClientSuccess.jsp");
     }
 
     /** 

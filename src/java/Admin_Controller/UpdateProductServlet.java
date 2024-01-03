@@ -92,8 +92,10 @@ public class UpdateProductServlet extends HttpServlet {
         try {
                processRequest(request, response);
                
-               String idProduct = (String) request.getParameter("idProduct");
+               String idProduct =  request.getParameter("idProduct");
+               System.out.println("id ProUpdate++++"+idProduct);
                String nameProduct = (String) request.getParameter("nameProduct");
+               System.out.println("nameProduct update ++"+nameProduct);
                String priceProduct = (String) request.getParameter("priceProduct");
                String category = (String) request.getParameter("category");
                Part part = request.getPart("imageProduct");

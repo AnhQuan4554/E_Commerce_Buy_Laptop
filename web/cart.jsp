@@ -156,7 +156,7 @@ request.setAttribute("dcf", dcf);
                                     <input type="text" name="quantity" class="form-control" value="${c.quantity}" readonly>
                                     <a class="btn btn-decre" href="/quantity-inc-dec?action=dec&id=${c.id}"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#fff" d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg></i></a>
                                 </div>
-                                <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&id=${c.p_id}">Buy Now</a>
+                                <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&id=${c.p_id}&order_id=${c.id}">Buy Now</a>
                             </form>
                         </td>
                         <td><a href="/remove-from-cart?id=${c.id}" class="btn btn-danger">Remove</a></td>

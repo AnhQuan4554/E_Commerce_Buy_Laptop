@@ -59,6 +59,17 @@
       enctype="multipart/form-data"
     >
     
+        <div class="form-control">
+        <label for="idProduct" class="form-label">id Product:</label>
+        <input
+          type="text"
+          name="idProduct"
+          id="idProduct"
+          class="form-input"
+          required="true"
+          value="${product.getId()}"
+        />
+      </div>
       <div class="form-control">
         <label for="firstName" class="form-label">Name Product:</label>
         <input

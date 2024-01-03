@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.CartDao;
 import DAO.DbCon;
 import DAO.OrderDao;
 import Model.Cart;
@@ -33,6 +34,8 @@ public class OrderNowServlet extends HttpServlet {
 
             if (auth != null) {
                 String productId = request.getParameter("id");
+                 String order_id = request.getParameter("order_id");
+                 
                 int productQuantity = Integer.parseInt(request.getParameter("quantity"));
                 if (productQuantity <= 0) {
                 	productQuantity = 1;
@@ -46,6 +49,9 @@ public class OrderNowServlet extends HttpServlet {
                 System.out.println("orderModel+++++"+orderModel);
                 OrderDao orderDao = new OrderDao();
                 boolean result = orderDao.insertOrder(orderModel);
+                /// delete cart after buy 
+//                CartDao cartDao = new CartDao();
+//                cartDao.removeFromCart(Integer.parseInt(order_id));
                 if(result){
                       response.sendRedirect("notify/addSuccess.jsp");
                 }

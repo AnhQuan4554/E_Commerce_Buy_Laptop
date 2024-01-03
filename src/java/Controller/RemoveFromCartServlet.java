@@ -1,6 +1,8 @@
 package Controller;
 
+import DAO.CartDao;
 import Model.Cart;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -11,33 +13,29 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @WebServlet("/remove-from-cart")
 public class RemoveFromCartServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-		try (PrintWriter out = response.getWriter()) {
-			String bookId = request.getParameter("id");
-			if (bookId != null) {
-				ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart-list");
-				if (cart_list != null) {
-					for (Cart c : cart_list) {
-						if (c.getId() == Integer.parseInt(bookId)) {
-							cart_list.remove(cart_list.indexOf(c));
-							break;
-						}
-					}
-				}
-				response.sendRedirect("cart.jsp");
+    private static final long serialVersionUID = 1L;
 
-			} else {
-				response.sendRedirect("cart.jsp");
-			}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            String prodcutID = request.getParameter("id");
+            if (prodcutID != null) {
+                CartDao cartDAO = new CartDao();
+                cartDAO.removeFromCart(Integer.parseInt(prodcutID));
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/notify/deleteCartSuccess.jsp");
+                try {
+                    dispatcher.forward(request, response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                    // Xử lý nếu có lỗi khi chuyển hướng trang
+                }
+            }
 
-		}
-	}
+        }
+    }
 
 }
