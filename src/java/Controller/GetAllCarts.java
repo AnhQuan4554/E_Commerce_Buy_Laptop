@@ -43,8 +43,7 @@ public class GetAllCarts extends HttpServlet {
         CartDao cartDao = new CartDao();
         List<Cart>cartList =  new ArrayList<>();
         cartList = cartDao.getAllCarts(auth.getEmail());
-          request.setAttribute("cartList", cartList);
-          System.out.println("cartList is+++"+cartList);
+          request.getSession().setAttribute("cartList", cartList);
           RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
         rd.forward(request, response);
     } 

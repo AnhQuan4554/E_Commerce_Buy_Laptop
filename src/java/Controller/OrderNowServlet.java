@@ -37,30 +37,20 @@ public class OrderNowServlet extends HttpServlet {
                 if (productQuantity <= 0) {
                 	productQuantity = 1;
                 }
+                
                 Order orderModel = new Order();
                 orderModel.setId(Integer.parseInt(productId));
                 orderModel.setUid(auth.getId());
-                orderModel.setQunatity(productQuantity);
+                orderModel.setQuantity(productQuantity);
                 orderModel.setDate(formatter.format(date));
-
+                System.out.println("orderModel+++++"+orderModel);
                 OrderDao orderDao = new OrderDao();
                 boolean result = orderDao.insertOrder(orderModel);
-                if (result) {
-                    ArrayList<Cart> cart_list = (ArrayList<Cart>) request.getSession().getAttribute("cart-list");
-                    if (cart_list != null) {
-                        for (Cart c : cart_list) {
-                            if (c.getId() == Integer.parseInt(productId)) {
-                                cart_list.remove(cart_list.indexOf(c));
-                                break;
-                            }
-                        }
-                    }
-                    response.sendRedirect("orders.jsp");
-                } else {
-                    out.println("order failed");
+                if(result){
+                      response.sendRedirect("notify/addSuccess.jsp");
                 }
             } else {
-                response.sendRedirect("login.jsp");
+                 response.sendRedirect("login_require.jsp");
             }
 
         }

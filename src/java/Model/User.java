@@ -5,6 +5,8 @@ public class User {
     private int id;
     private String name;
     private String email;
+    private String birthday;
+    private String address;
     private String password;
     private String phone;
     private String role;
@@ -22,6 +24,16 @@ public class User {
 
     }
 
+//    public User(String name, String email, String phone, String birthday, String address) {
+//
+//        this.name = name;
+//        this.email = email;
+//        this.phone = phone;
+//        this.address = address;
+//        this.birthday = birthday;
+//        
+//    }
+    
     public User(int id, String name, String email, String password, String phone, String role) {
         this.id = id;
         this.name = name;
@@ -32,6 +44,20 @@ public class User {
 
     }
 
+    public User(String name, String birthday, String email, String address, String password, String phone, String role) {
+        this.name = name;
+        this.birthday = birthday;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+        this.phone = phone;
+        this.role = role;
+    }
+    
+    
+    
+    
+    
     public int getId() {
         return id;
     }
@@ -80,9 +106,25 @@ public class User {
         this.role = role;
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
+        return "User [id=" + id + ", name=" + name + ", birthday=" + birthday + ", address=" + address + ", email=" + email + ", password=" + password + "]";
     }
 
 }
