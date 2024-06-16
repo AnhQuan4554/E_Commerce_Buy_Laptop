@@ -45,8 +45,8 @@ request.setAttribute("dcf", dcf);
 
         .btn-primary {
             background-color: #007bff;
-            width: 80px;
-            height: 20px;
+            display: block;
+            width: 140px !important;
             color: #fff;
             border: none;
             padding: 7px 15px;
@@ -83,19 +83,20 @@ request.setAttribute("dcf", dcf);
             align-items: center;
         }
 
+        .form-group a{
+            display: block;
+        }
+
         .btn-incre, .btn-decre {
             background-color: #28a745;
             color: #fff;
             border: none;
-            padding: 3px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
             cursor: pointer;
-            border-radius: 3px;
-            width: 20px;
-            height: 20px;
+        
+       
             margin: 0 10px;
         }
 
@@ -158,13 +159,11 @@ request.setAttribute("dcf", dcf);
                             <form action="/order-now" method="post" class="form-inline">
                                 <input type="hidden" name="id" value="${c.id}" class="form-input">
                                 <div class="form-group">
-                                    <a class="btn btn-incre" href="/quantity-inc-dec?action=inc&id=${c.id}"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#fff" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></a>
-                                    <input type="text" name="quantity" class="form-control" value="${c.quantity}" readonly>
-                                    <a class="btn btn-decre" href="/quantity-inc-dec?action=dec&id=${c.id}"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#fff" d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg></i></a>
+                                    <a class="btn btn-incre" href="/quantity-inc-dec?action=inc&id=${c.id}">+</a>
+                                    <input style="text-align: center;" type="text" name="quantity" class="form-control" value="${c.quantity}" readonly>
+                                    <a class="btn btn-decre" href="/quantity-inc-dec?action=dec&id=${c.id}">-</a>
                                 </div>
-
                                 <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&id=${c.p_id}&order_id=${c.id}">Buy Now</a>
-
                             </form>
                         </td>
                         <td><a href="/remove-from-cart?id=${c.id}" class="btn btn-danger">Remove</a></td>
