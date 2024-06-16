@@ -2,9 +2,12 @@ package Controller;
 
 import DAO.DbCon;
 import DAO.OrderDao;
+import DAO.ProductDao;
 import Model.Cart;
 import Model.Order;
 import Model.User;
+import Model.Product;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -37,18 +40,25 @@ public class OrderNowServlet extends HttpServlet {
                 if (productQuantity <= 0) {
                 	productQuantity = 1;
                 }
+                // get all infor product name 
+                ProductDao productDao = new ProductDao();
+              Product  productDetail= productDao.findProduct(Integer.parseInt(productId));
+               request.setAttribute("productDetail", productDetail);
                 
-                Order orderModel = new Order();
-                orderModel.setId(Integer.parseInt(productId));
-                orderModel.setUid(auth.getId());
-                orderModel.setQuantity(productQuantity);
-                orderModel.setDate(formatter.format(date));
-                System.out.println("orderModel+++++"+orderModel);
-                OrderDao orderDao = new OrderDao();
-                boolean result = orderDao.insertOrder(orderModel);
-                if(result){
-                      response.sendRedirect("notify/addSuccess.jsp");
-                }
+//                Order orderModel = new Order();
+//                orderModel.setId(Integer.parseInt(productId));
+//                orderModel.setUid(auth.getId());
+//                orderModel.setQuantity(productQuantity);
+//                orderModel.setDate(formatter.format(date));
+//                System.out.println("orderModel+++++"+orderModel);
+//                OrderDao orderDao = new OrderDao();
+//                boolean result = orderDao.insertOrder(orderModel);
+//                if(result){
+//                      response.sendRedirect("order_Confirm_Infor.jsp");
+//                }
+//                response.sendRedirect("order_Confirm_Infor.jsp");
+                  RequestDispatcher dispatcher = request.getRequestDispatcher("/order_Confirm_Infor.jsp");
+                   dispatcher.forward(request, response);
             } else {
                  response.sendRedirect("login_require.jsp");
             }
@@ -56,9 +66,39 @@ public class OrderNowServlet extends HttpServlet {
         }
             // TODO Auto-generated catch block
             	}
-    
+               
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+                            System.out.println("xxxx chay vao dassssy");
+              SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+              Date date = new Date();
+
+              // get infor from form  
+                String productId = request.getParameter("productId");
+                 String recipientName = request.getParameter("recipientName");
+                 String phoneNumber = request.getParameter("phoneNumber");
+                String address = request.getParameter("address");
+                int productQuantity = Integer.parseInt(request.getParameter("quantity"));
+                if (productQuantity <= 0) {
+                	productQuantity = 1;
+                }
+                
+                User auth = (User) request.getSession().getAttribute("auth");        
+                Order orderModel = new Order();
+                orderModel.setId(Integer.parseInt(productId));
+                orderModel.setUid(auth.getId());
+                orderModel.setQuantity(productQuantity);
+                orderModel.setDate(formatter.format(date));
+                orderModel.setRecipientName(recipientName);
+                orderModel.setPhoneNumber(phoneNumber);
+                orderModel.setAddress(address);
+                System.out.println("orderModel+++++"+orderModel);
+                OrderDao orderDao = new OrderDao();
+                boolean result = orderDao.insertOrder(orderModel);
+                if(result){
+                      response.sendRedirect("/notify/addSuccess.jsp");
+                }
+//                response.sendRedirect("order_Confirm_Infor.jsp");
 	}
 
 }

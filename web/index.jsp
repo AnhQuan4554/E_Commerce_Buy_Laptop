@@ -32,6 +32,9 @@ ProductDao pd = new ProductDao();
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
         <title>E-Commerce Cart</title>
         <style>
+            *{margin: 0;
+            padding: 0;
+        box-sizing: border-box;}
             body {
                 font-family: "Roboto",sans-serif;
                 margin: 0;
@@ -89,7 +92,7 @@ ProductDao pd = new ProductDao();
                 transition: box-shadow 0.3s ease-in-out;
                 position: relative;
                 margin-top: 20px;
-                border-radius: 5px;
+                border-radius: 10px;
                 padding-top: 5px;
             }
 
@@ -102,7 +105,6 @@ ProductDao pd = new ProductDao();
                 height: 200px;
                 object-fit: cover;
                 margin-top:20px;
-                margin-left: 40px;
             }
 
             .card-body {
@@ -114,9 +116,9 @@ ProductDao pd = new ProductDao();
 
             .card-title {
                 font-size: 15px;
-                text-decoration: none;
+                font-weight: 600;
                 text-align: center;
-                height: 65px;
+                margin: 0 !important;
             }
 
             .price {
@@ -187,6 +189,7 @@ ProductDao pd = new ProductDao();
     </head>
     <body>
         <%@include file="/includes/navbar.jsp"%>
+         <%@include file="/includes/topHome.jsp"%>
         <%@include file="/includes/sorting_product.jsp"%>
 
         <div class="container-index">
@@ -204,7 +207,7 @@ ProductDao pd = new ProductDao();
                                         <p class="card-title">${p.name}</p>
                                         <p class="price">Price: $${p.price}</p>
                                         <p class="category">Category: ${p.category}</p>
-                                        <div class="mt-3">
+                                        <div>
                                             <a class="btn btn-dark" 
                                                href="/add-to-cart?id=${p.id}&name=${p.name}&price=${p.price}&category=${p.category}&image=${p.image}">Add to Cart</a>
                                             <a class="btn btn-primary" href="order-now?quantity=1&id=${p.id}">Buy Now</a>

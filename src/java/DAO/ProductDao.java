@@ -52,7 +52,7 @@ public class ProductDao extends DbCon {
             pst.setString(7, product.getGuarantee());
             pst.setString(8, product.getDescription());
             pst.setString(9, product.getGpu());
-            
+
             pst.executeUpdate();
             return true;
 

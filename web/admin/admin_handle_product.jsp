@@ -1,7 +1,6 @@
-<%@page import="Model.*"%>
-<%@page import="java.util.*"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+<%@page import="Model.*"%> <%@page import="java.util.*"%> <%@ page
+language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,7 +23,7 @@
         margin: 0 auto;
       }
       .form-label {
-        text-align:left;
+        text-align: left;
       }
       .form-input {
         margin-left: 50px;
@@ -34,15 +33,15 @@
       }
       .form-btn {
         background-color: #2b80dd;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
       }
       h1 {
-        color: rgba(0,0,0,0.7);
+        color: rgba(0, 0, 0, 0.7);
       }
     </style>
   </head>
@@ -52,105 +51,102 @@
 
     <center>
       <h1>${title}</h1>
-    <form
-      action="/${action}"
-      method="POST"
-      class="form"
-      enctype="multipart/form-data"
-    >
-    
-      <div class="form-control">
-        <label for="firstName" class="form-label">Name Product:</label>
-        <input
-          type="text"
-          name="nameProduct"
-          id="HoTen"
-          class="form-input"
-          required="true"
-          value="${product.getName()}"
-        />
-      </div>
-      <div class="form-control">
-        <label for="lastName" class="form-label">Price: </label>
-        <input
-          type="text"
-          name="priceProduct"
-          id="NgaySinh"
-          class="form-input"
-          required="true"
-          value="${product.getPrice()}"
-        />
-      </div>
-
-      <div class="form-control">
-        <label for="lastName" class="form-label">Category: </label>
-        <input
-          type="text"
-          name="category"
-          id="NgaySinh"
-          class="form-input"
-          required="true"
-          value="${product.getCategory()}"
-        />
-      </div>
-
-      <div class="form-control">
-        <label for="image" class="form-label">Image: </label>
-        <input
-          type="file"
-          name="imageProduct"
-          id="image"
-          class="form-input"
-          required="true"
-        />
-      </div>
-      <div class="form-control">
-        <label for="image">Status</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input
-          class="form-input"
-          type="text"
-          id="status"
-          name="status"
-          required
-        />
-      </div>
-      <div class="form-control">
-        <label for="image">Guarantee</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input
-          class="form-input"
-          type="text"
-          id="guarantee"
-          name="guarantee"
-          required
-        />
-      </div>
-      <div class="form-control">
-        <label for="image">Description</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input
-          class="form-input"
-          type="text"
-          id="description"
-          name="description"
-          required
-        />
-      </div>
+      <form
+        action="/${action}"
+        method="POST"
+        class="form"
+        enctype="multipart/form-data"
+      >
         <div class="form-control">
-        <label for="gpu">Gpu</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input
-          class="form-input"
-          type="text"
-          id="gpu"
-          name="gpu"
-        />
-      </div>
+          <label for="firstName" class="form-label">Name Product:</label>
+          <input
+            type="text"
+            name="nameProduct"
+            id="HoTen"
+            class="form-input"
+            required="true"
+            value="${product.getName()}"
+          />
+        </div>
+        <div class="form-control">
+          <label for="lastName" class="form-label">Price: </label>
+          <input
+            type="text"
+            name="priceProduct"
+            id="NgaySinh"
+            class="form-input"
+            required="true"
+            value="${product.getPrice()}"
+          />
+        </div>
 
-      <button type="submit" class="form-btn submit-btn">${title}</button>
-    </form>
-    <br>
-    <br>
+        <div class="form-control">
+          <label for="lastName" class="form-label">Category: </label>
+          <input
+            type="text"
+            name="category"
+            id="category"
+            class="form-input"
+            required="true"
+            value="${product.getCategory()}"
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="image" class="form-label">Image: </label>
+          <input
+            type="file"
+            name="imageProduct"
+            id="image"
+            class="form-input"
+            required="true"
+          />
+        </div>
+        <div class="form-control">
+          <label for="image">Status</label
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input
+            class="form-input"
+            type="text"
+            id="status"
+            name="status"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="image">Guarantee</label
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input
+            class="form-input"
+            type="text"
+            id="guarantee"
+            name="guarantee"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="image">Description</label
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input
+            class="form-input"
+            type="text"
+            id="description"
+            name="description"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="gpu">Gpu</label
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input class="form-input" type="text" id="gpu" name="gpu" />
+        </div>
+
+        <button type="submit" class="form-btn submit-btn">${title}</button>
+      </form>
+      <br />
+      <br />
     </center>
 
     <%@include file="/includes/footer.jsp"%>
-
   </body>
 </html>

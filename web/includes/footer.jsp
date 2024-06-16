@@ -32,7 +32,6 @@
                 margin-bottom: 30px;
                 display: flex;
                 justify-content: space-between;
-                padding: 0 360px;
             }
 
             .footer-top-item {

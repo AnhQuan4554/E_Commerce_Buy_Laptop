@@ -21,12 +21,16 @@ public class OrderDao extends DbCon {
     public boolean insertOrder(Order model) {
         boolean result = false;
         try {
-            query = "insert into orders (p_id, u_id, o_quantity, o_date) values(?,?,?,?)";
+            query = "insert into orders (p_id, u_id, o_quantity, o_date,o_recipientName,o_phoneNumber,o_address) values(?,?,?,?,?,?,?)";
             pst = con.prepareStatement(query);
             pst.setInt(1, model.getId());
             pst.setInt(2, model.getUid());
             pst.setInt(3, model.getQuantity());
             pst.setString(4, model.getDate());
+             pst.setString(5, model.getRecipientName());
+              pst.setString(6, model.getPhoneNumber());
+               pst.setString(7, model.getAddress());
+             
             pst.executeUpdate();
             result = true;
         } catch (SQLException e) {
