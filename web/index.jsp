@@ -30,6 +30,8 @@ ProductDao pd = new ProductDao();
 <html>
     <head>
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
         <title>E-Commerce Cart</title>
         <style>
             *{margin: 0;
@@ -194,7 +196,7 @@ ProductDao pd = new ProductDao();
 
         <div class="container-index">
             <div class="card-header my-3">
-                &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="text-h3">ALL PRODUCTS</h3>
+                &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="text-h3">Tất cả sản phẩm</h3>
             </div>
             <div class="row">
                 <c:if test="${not empty products}">

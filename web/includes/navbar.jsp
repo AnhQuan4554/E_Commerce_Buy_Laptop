@@ -130,9 +130,11 @@
         .logo-navbar {
             display: flex;
             align-items: center;
+          
         }
         .logo-img {
             width: 170px;
+            margin-right: 10px;
         }
         .container3 {
             background-color: #2b80dd;
@@ -155,28 +157,46 @@
             background-color: #115fb4;
             cursor: pointer;
         }
+        .admin_controller{
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+        }
+        .admin_controller i{
+            font-size: 20px;
+        }
+        .admin_controller a{
+            margin-left: 6px !important;
+        }
     </style>
 </head>
 <body>
-
     <div class="container2">
-        <div class="logo-navbar">
+        <div  class="logo-navbar">
             <a class="navbar-brand" href="/index.jsp">
                 <img class="logo-img" src="../image/logolaptopok.png" alt="E-Commerce Cart Logo">
             </a>
-            <c:choose>
-                <c:when test="${not empty sessionScope.auth && sessionScope.auth.role }">
-                    <a class="navbar-link-to " href="/admin/admin.jsp">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#007bff" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
-                        Admin 
-                    </a>
-                    
-                      <a class="navbar-link-to " href="/manageClient.jsp">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path fill="#007bff" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
-                        Client 
-                    </a>
-                </c:when>
-            </c:choose> 
+    
+            <div style="display: flex;align-items: center; margin-left: 30px;">
+                <c:if test="${not empty sessionScope.auth && sessionScope.auth.role == 1}">
+                    <div class="admin_controller">
+                        <i class="bi bi-shop"></i>
+                        <a class="navbar-link-to" href="/admin/admin.jsp">
+                            Products 
+                        </a>
+                    </div>    
+                </c:if>
+                
+                <c:if test="${not empty sessionScope.auth}">
+                    <div class="admin_controller">
+                        <i class="bi bi-people"></i>
+                        <a class="navbar-link-to" href="/manageClient.jsp">
+                            Users 
+                        </a>
+                    </div>
+                </c:if>
+                
+           </div>
         </div>               
                
                 

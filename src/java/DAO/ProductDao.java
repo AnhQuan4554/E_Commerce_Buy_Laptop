@@ -64,9 +64,9 @@ public class ProductDao extends DbCon {
 
     }
 
-    public Product findProduct(int productID) {
+    public Product findProduct(String productId) {
         try {
-            query = "SELECT * FROM products WHERE id = '" + productID + "';";
+            query = "SELECT * FROM products WHERE id = '" + productId + "';";
             pst = this.con.prepareStatement(query);
             rs = pst.executeQuery();
 

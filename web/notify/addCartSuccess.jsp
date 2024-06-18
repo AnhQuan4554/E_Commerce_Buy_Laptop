@@ -32,7 +32,7 @@ pageEncoding="ISO-8859-1"%>
       }
 
       .success-icon img {
-        width: 80px; /* ?i?u ch?nh k?ch th??c c?a ?nh */
+        width: 80px; /* ?i?u ch?nh k�ch th??c c?a ?nh */
         height: auto;
         margin-bottom: 20px;
       }
@@ -66,7 +66,7 @@ pageEncoding="ISO-8859-1"%>
         <div class="success-icon">
           <img src="../image/success.png" alt="Success Image" />
         </div>
-        <h1>Delete item from cart Successful</h1>
+        <h1>Add to cart Successful</h1>
         <p>You can view <a href="/get-all-carts">Cart</a> now!</p>
       </div>
     </div>

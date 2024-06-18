@@ -19,16 +19,17 @@ public class AddToCartServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         User auth = (User) request.getSession().getAttribute("auth");
         if (auth == null) {
-            
+
             response.sendRedirect("login_require.jsp");
-            return ;
+            return;
         }
-        try ( PrintWriter out = response.getWriter()) {
-            
+        try (PrintWriter out = response.getWriter()) {
+
             int p_id = Integer.parseInt(request.getParameter("id"));
 
             String name = request.getParameter("name");
@@ -39,42 +40,44 @@ public class AddToCartServlet extends HttpServlet {
 
             String image = request.getParameter("image");
             if (auth.getEmail() == "" || auth.getEmail() == null) {
-//             Cart cart = new Cart(name,category,price, image, 1, "");
+                // Cart cart = new Cart(name,category,price, image, 1, "");
             } else {
-                Cart cart = new Cart(p_id,name, category, price, image, 1, auth.getEmail());
+                Cart cart = new Cart(p_id, name, category, price, image, 1, auth.getEmail());
                 CartDao cartDao = new CartDao();
                 boolean check = cartDao.addCart(cart);
                 if (check) {
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("/notify/addCartSuccess.jsp");
                 }
             }
 
-//            System.out.println("CHECK++++"+check);
-//         if( check){
-//              response.sendRedirect("index.jsp");
-//         }
-//            HttpSession session = request.getSession();
-//            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-//            if (cart_list == null) {
-//                cartList.add(cm);
-//                session.setAttribute("cart-list", cartList);
-//                response.sendRedirect("index.jsp");
-//            } else {
-//                cartList = cart_list;
-//
-//                boolean exist = false;
-//                for (Cart c : cart_list) {
-//                    if (c.getId() == id) {
-//                        exist = true;
-//                        out.println("<h3 style='color:crimson; text-align: center'>Item Already in Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
-//                    }
-//                }
-//
-//                if (!exist) {
-//                    cartList.add(cm);
-//                    response.sendRedirect("index.jsp");
-//                }
-//            }
+            // System.out.println("CHECK++++"+check);
+            // if( check){
+            // response.sendRedirect("index.jsp");
+            // }
+            // HttpSession session = request.getSession();
+            // ArrayList<Cart> cart_list = (ArrayList<Cart>)
+            // session.getAttribute("cart-list");
+            // if (cart_list == null) {
+            // cartList.add(cm);
+            // session.setAttribute("cart-list", cartList);
+            // response.sendRedirect("index.jsp");
+            // } else {
+            // cartList = cart_list;
+            //
+            // boolean exist = false;
+            // for (Cart c : cart_list) {
+            // if (c.getId() == id) {
+            // exist = true;
+            // out.println("<h3 style='color:crimson; text-align: center'>Item Already in
+            // Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
+            // }
+            // }
+            //
+            // if (!exist) {
+            // cartList.add(cm);
+            // response.sendRedirect("index.jsp");
+            // }
+            // }
         }
     }
 

@@ -137,7 +137,7 @@ request.setAttribute("dcf", dcf);
 
             <h3>ALL CART </h3>
 
-            <a class="mx-3 btn btn-primary" href="/cart-check-out">Check Out</a>
+            <!-- <a class="mx-3 btn btn-primary" href="/cart-check-out">Check Out</a> -->
         </div>
         <table>
             <thead>
