@@ -62,7 +62,7 @@ public class UpdateProductServlet extends HttpServlet {
             String productID = (String) request.getParameter("productID");
             
             ProductDao pd = new ProductDao();
-            Product product = pd.findProduct(Integer.parseInt(productID));
+            Product product = pd.findProduct(productID);
 
             if(product == null) {
                 System.out.println("Error find Product. Log in UpdateProductServlet.");

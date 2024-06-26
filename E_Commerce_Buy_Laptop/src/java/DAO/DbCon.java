@@ -18,7 +18,7 @@ public class DbCon {
     //constructor
     public DbCon() {
         if (con == null) {
-            String dbUrl = "jdbc:mysql://localhost:3306/ecommerce";
+            String dbUrl = "jdbc:mysql://localhost:3306/new_ecommerce";
             String dbClass = "com.mysql.cj.jdbc.Driver";
 
             try {

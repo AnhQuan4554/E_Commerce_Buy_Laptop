@@ -383,7 +383,7 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
             </button>
             <br />
             <button class="btn-cart">
-              <a href="order-now?quantity=1&id=${p.id}">Buy Now</a>
+              <a href="order-now?quantity=1&id=${productDetail.id}">Buy Now</a>
             </button>
           </div>
         </div>
