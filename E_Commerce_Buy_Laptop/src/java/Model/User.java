@@ -2,84 +2,52 @@ package Model;
 
 public class User {
 
-    private int id;
-    private String name;
-    private String email;
-    private String birthday;
-    private String address;
+    private int userID;
+    private String username;
     private String password;
     private String phone;
-    private String role;
+    private String email;
+    private int role;
+    private int isActive;
+    private String address;
 
     public User() {
     }
 
-    public User(String name, String email, String password, String phone, String role) {
-
-        this.name = name;
-        this.email = email;
+    public User( String username, String password, String phone, String email, int role, int isActive,
+            String address) {
+        this.username = username;
         this.password = password;
         this.phone = phone;
-        this.role = role;
-
-    }
-
-//    public User(String name, String email, String phone, String birthday, String address) {
-//
-//        this.name = name;
-//        this.email = email;
-//        this.phone = phone;
-//        this.address = address;
-//        this.birthday = birthday;
-//        
-//    }
-    
-    public User(int id, String name, String email, String password, String phone, String role) {
-        this.id = id;
-        this.name = name;
         this.email = email;
-        this.password = password;
-        this.phone = phone;
         this.role = role;
-
-    }
-
-    public User(String name, String birthday, String email, String address, String password, String phone, String role) {
-        this.name = name;
-        this.birthday = birthday;
-        this.email = email;
+        this.isActive = isActive;
         this.address = address;
-        this.password = password;
+    }
+
+    public User(String username, String phone, String email, int isActive, String address) {
+        this.username = username;
         this.phone = phone;
-        this.role = role;
-    }
-    
-    
-    
-    
-    
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
+        this.isActive = isActive;
+        this.address = address;
+    }
+    
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -98,20 +66,28 @@ public class User {
         this.phone = phone;
     }
 
-    public String getRole() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public int getIsActive() {
+        return isActive;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     public String getAddress() {
@@ -121,10 +97,11 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
-    
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", birthday=" + birthday + ", address=" + address + ", email=" + email + ", password=" + password + "]";
+        return "User{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", phone=" + phone
+                + ", email=" + email + ", role=" + role + ", isActive=" + isActive + ", address=" + address + '}';
     }
 
 }

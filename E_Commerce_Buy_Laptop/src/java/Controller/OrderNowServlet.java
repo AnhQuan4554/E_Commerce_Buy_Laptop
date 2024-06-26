@@ -74,7 +74,7 @@ public class OrderNowServlet extends HttpServlet {
         User auth = (User) request.getSession().getAttribute("auth");
         Order orderModel = new Order();
         orderModel.setId(Integer.parseInt(productID));
-        orderModel.setUid(auth.getId());
+        orderModel.setUid(auth.getUserID());
         orderModel.setQuantity(productQuantity);
         orderModel.setDate(formatter.format(date));
         orderModel.setRecipientName(recipientName);

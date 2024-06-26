@@ -36,7 +36,7 @@ public class CheckOutServlet extends HttpServlet {
 				for(Cart c:cart_list) {
 					Order order = new Order();
 					order.setId(c.getId());
-					order.setUid(auth.getId());
+					order.setUid(auth.getUserID());
 					order.setQuantity(c.getQuantity());
 					order.setDate(formatter.format(date));
 					
