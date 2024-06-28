@@ -45,18 +45,6 @@ public class OrderNowServlet extends HttpServlet {
                 Product productDetail = productDao.findProduct(productId);
                 request.setAttribute("productDetail", productDetail);
 
-                // Order orderModel = new Order();
-                // orderModel.setId(Integer.parseInt(productId));
-                // orderModel.setUid(auth.getId());
-                // orderModel.setQuantity(productQuantity);
-                // orderModel.setDate(formatter.format(date));
-                // System.out.println("orderModel+++++"+orderModel);
-                // OrderDao orderDao = new OrderDao();
-                // boolean result = orderDao.insertOrder(orderModel);
-                // if(result){
-                // response.sendRedirect("order_Confirm_Infor.jsp");
-                // }
-                // response.sendRedirect("order_Confirm_Infor.jsp");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/order_Confirm_Infor.jsp");
                 dispatcher.forward(request, response);
             } else {
@@ -86,7 +74,7 @@ public class OrderNowServlet extends HttpServlet {
         User auth = (User) request.getSession().getAttribute("auth");
         Order orderModel = new Order();
         orderModel.setId(Integer.parseInt(productID));
-        orderModel.setUid(auth.getId());
+        orderModel.setUid(auth.getUserID());
         orderModel.setQuantity(productQuantity);
         orderModel.setDate(formatter.format(date));
         orderModel.setRecipientName(recipientName);

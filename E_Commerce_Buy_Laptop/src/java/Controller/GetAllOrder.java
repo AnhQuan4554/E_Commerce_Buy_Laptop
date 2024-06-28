@@ -70,7 +70,7 @@ public class GetAllOrder extends HttpServlet {
         if (auth != null) {
             request.setAttribute("person", auth);
             OrderDao orderDao = new OrderDao();
-            orders = orderDao.userOrders(auth.getId());
+            orders = orderDao.userOrders(auth.getUserID());
 
             request.setAttribute("orders", orders);
           RequestDispatcher rd = request.getRequestDispatcher("orders.jsp");

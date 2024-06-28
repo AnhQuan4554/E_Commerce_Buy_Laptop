@@ -208,29 +208,30 @@ pageEncoding="ISO-8859-1"%>
       </div>
 
       <div class="navbar-collaps">
-        <a class="navbar-link-to1" href="#">
-          <i class="bi bi-file-person-fill"></i>
-          <p>About</p>
-          <span class="badge badge-danger">${cart_list.size()}</span>
-        </a>
-        <a class="navbar-link-to1" href="/get-all-carts">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="16"
-            width="14"
-            viewBox="0 0 448 512"
-          >
-            <path
-              fill="#ec1c24"
-              d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"
-            />
-          </svg>
-          <p>Cart</p>
-          <span class="badge badge-danger">${cart_list.size()}</span>
-        </a>
+        <c:if
+          test="${not empty sessionScope.auth && sessionScope.auth.role != 1}"
+        >
+          <a class="navbar-link-to1" href="/get-all-carts">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                fill="#ec1c24"
+                d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"
+              />
+            </svg>
+            <p>Cart</p>
+            <span class="badge badge-danger">${cart_list.size()}</span>
+          </a>
+        </c:if>
 
         <c:choose>
-          <c:when test="${2 > 1}">
+          <c:when
+            test="${not empty sessionScope.auth && sessionScope.auth.role != 1}"
+          >
             <a class="navbar-link-to1" href="/get-all-orders">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -246,11 +247,8 @@ pageEncoding="ISO-8859-1"%>
               <p>Orders</p>
             </a>
           </c:when>
-
-          <c:otherwise>
-            <a class="navbar-link-to1" href="/login.jsp">Login</a>
-          </c:otherwise>
         </c:choose>
+
         <a class="navbar-link-to1" href="/userInfor.jsp">
           <i class="bi bi-pencil-square"></i>
           <p>Edit Infor</p>
@@ -272,6 +270,15 @@ pageEncoding="ISO-8859-1"%>
                 />
               </svg>
               <p>Logout</p>
+            </a>
+          </c:when>
+        </c:choose>
+      </div>
+      <div>
+        <c:choose>
+          <c:when test="${empty sessionScope.auth}">
+            <a class="navbar-link-to1" href="login.jsp">
+              <p>Login</p>
             </a>
           </c:when>
         </c:choose>

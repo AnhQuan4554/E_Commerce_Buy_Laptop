@@ -1,6 +1,8 @@
-<%@page import="Model.*"%> <%@page import="java.util.*"%> <%@ page
-language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
+<%@page import="Model.*"%> 
+<%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,17 +10,6 @@ pageEncoding="ISO-8859-1"%>
     <title>JSP Page</title>
     <link rel="stylesheet" href="./css/style.css" />
     <style>
-      /* .form-select-input {
-        padding: 4px 8px;
-        margin-left: 8px;
-        flex-grow: 1;
-        font-family: inherit;
-        font-size: 16px;
-        padding: 4px 8px;
-        outline: none;
-        border: 1px solid #141e46;
-        margin-left: 8px;
-      } */
       .form-control {
         margin: 0 auto;
       }
@@ -57,15 +48,24 @@ pageEncoding="ISO-8859-1"%>
         class="form"
         enctype="multipart/form-data"
       >
+           <div class="form-control">
+          <label for="idProduct" class="form-label">Id Product:</label>
+          <input
+            type="text"
+            name="idProduct"
+            id="idProduct"
+            class="form-input"
+            required="true"
+          />
+        </div>
         <div class="form-control">
-          <label for="firstName" class="form-label">Name Product:</label>
+          <label for="nameProduct" class="form-label">Name Product:</label>
           <input
             type="text"
             name="nameProduct"
-            id="HoTen"
+            id="nameProduct"
             class="form-input"
             required="true"
-            value="${product.getName()}"
           />
         </div>
         <div class="form-control">
@@ -73,10 +73,9 @@ pageEncoding="ISO-8859-1"%>
           <input
             type="text"
             name="priceProduct"
-            id="NgaySinh"
+            id="priceProduct"
             class="form-input"
             required="true"
-            value="${product.getPrice()}"
           />
         </div>
 
@@ -88,7 +87,18 @@ pageEncoding="ISO-8859-1"%>
             id="category"
             class="form-input"
             required="true"
-            value="${product.getCategory()}"
+            
+          />
+        </div>
+          <div class="form-control">
+          <label for="manufacturerID" class="form-label">Manufacturer ID </label>
+          <input
+            type="text"
+            name="manufacturerID"
+            id="manufacturerID"
+            class="form-input"
+            required="true"
+            
           />
         </div>
 
@@ -103,30 +113,30 @@ pageEncoding="ISO-8859-1"%>
           />
         </div>
         <div class="form-control">
-          <label for="image">Status</label
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label for="image">Voucher Code</label
+          >
           <input
             class="form-input"
             type="text"
-            id="status"
-            name="status"
+            id="voucherCode"
+            name="voucherCode"
             required
           />
         </div>
         <div class="form-control">
-          <label for="image">Guarantee</label
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label for="image">Quantity In Stock</label
+          >
           <input
             class="form-input"
             type="text"
-            id="guarantee"
-            name="guarantee"
+            id="quantityInStock"
+            name="quantityInStock"
             required
           />
         </div>
         <div class="form-control">
           <label for="image">Description</label
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          >
           <input
             class="form-input"
             type="text"
@@ -135,12 +145,6 @@ pageEncoding="ISO-8859-1"%>
             required
           />
         </div>
-        <div class="form-control">
-          <label for="gpu">Gpu</label
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input class="form-input" type="text" id="gpu" name="gpu" />
-        </div>
-
         <button type="submit" class="form-btn submit-btn">${title}</button>
       </form>
       <br />

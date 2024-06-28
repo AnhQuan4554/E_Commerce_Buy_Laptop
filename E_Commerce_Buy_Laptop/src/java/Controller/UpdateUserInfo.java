@@ -73,18 +73,16 @@ public class UpdateUserInfo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("okokok");
         try {
 
-            String name = (String) request.getParameter("name");
-            System.out.println("name+++" + name);
-            String email = (String) request.getParameter("email");
-            String birthday = (String) request.getParameter("birthday");
+            String username = (String) request.getParameter("name");
             String phone = (String) request.getParameter("phone");
+            String email = (String) request.getParameter("email");
+            String isActive =  request.getParameter("isActive");
             String address = (String) request.getParameter("address");
 
             UserDao ud  = new UserDao();
-            User newUser = new User(name, birthday, email, address,"" ,phone, "");
+            User newUser = new User(username,phone , email, 1,address);
             System.out.println("newUser+++" + newUser);
             if (ud.updateUser(newUser)) {
                 System.out.println("Update successfully!");
