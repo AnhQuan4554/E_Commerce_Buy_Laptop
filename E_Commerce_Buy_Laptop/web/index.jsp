@@ -10,10 +10,9 @@
 User auth = (User) request.getSession().getAttribute("auth");
 
 if (auth != null) {
-//     System.out.println("authauth++++"+auth.getEmail());
     request.setAttribute("person", auth);
 }else{
-//     System.out.println("authauth++++"+auth.getEmail());
+
     }
 
  String sortType = request.getParameter("sort");
@@ -21,10 +20,11 @@ if (auth != null) {
   
 if(sortType==null&&category==null){
 
-ProductDao pd = new ProductDao();
+    ProductDao pd = new ProductDao();
     List<Product> products = pd.getAllProducts();
- request.getSession().setAttribute("products", products);
-    }
+    request.getSession().setAttribute("products", products);
+    
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -202,17 +202,17 @@ ProductDao pd = new ProductDao();
                 <c:if test="${not empty products}">
                     <c:forEach var="p" items="${products}">
                         <div class="col-md-3 my-3 col">
-                            <a class="item-product" href="/products?id=${p.id}">
+                            <a class="item-product" href="/products?id=${p.productID}">
                                 <div class="card w-100">
                                     <img class="card-img-top" src="product-image/${p.image}" alt="Card image cap">
                                     <div class="card-body">
-                                        <p class="card-title">${p.name}</p>
+                                        <p class="card-title">${p.productName}</p>
                                         <p class="price">Price: $${p.price}</p>
-                                        <p class="category">Category: ${p.category}</p>
+                                        <p class="category">Category: ${p.categoryID}</p>
                                         <div>
                                             <a class="btn btn-dark" 
-                                               href="/add-to-cart?id=${p.id}&name=${p.name}&price=${p.price}&category=${p.category}&image=${p.image}">Add to Cart</a>
-                                            <a class="btn btn-primary" href="order-now?quantity=1&id=${p.id}">Buy Now</a>
+                                               href="/add-to-cart?id=${p.productID}&name=${p.productName}&price=${p.price}&category=${p.categoryID}&image=${p.image}">Add to Cart</a>
+                                            <a class="btn btn-primary" href="order-now?quantity=1&id=${p.productID}">Buy Now</a>
                                         </div>
                                     </div>
                                 </div>

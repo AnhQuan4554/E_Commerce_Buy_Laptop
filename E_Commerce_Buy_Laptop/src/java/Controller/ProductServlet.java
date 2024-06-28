@@ -62,10 +62,10 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              
-         String id = String.valueOf(request.getParameter("id")) ;
-         String sortType = request.getParameter("sort");
-         String category = request.getParameter("category");
+
+        String id = String.valueOf(request.getParameter("id"));
+        String sortType = request.getParameter("sort");
+        String category = request.getParameter("category");
         if (sortType != null) {
             sortType = sortType.toLowerCase();
             ProductDao proDao = new ProductDao();
@@ -85,17 +85,8 @@ public class ProductServlet extends HttpServlet {
         } else if (id != null) {
             ProductDao proDao = new ProductDao();
             Product productDetail = proDao.findProduct(id);
-            List<String> gpu = new ArrayList<>();
-            String gpuData = productDetail.getGpu();
-            if (gpuData != null && !gpuData.isEmpty()) {
-                String[] arrayOfStrings = gpuData.split(";");
-                for (String str : arrayOfStrings) {
-                    gpu.add(str);
-                }
-            }
-            System.out.println("productDetail"+productDetail);
+            System.out.println("productDetail" + productDetail);
             request.setAttribute("productDetail", productDetail);
-            request.setAttribute("gpu", gpu);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/detailProduct.jsp");
             dispatcher.forward(request, response);
         }

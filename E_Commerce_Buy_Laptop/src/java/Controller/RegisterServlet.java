@@ -67,15 +67,15 @@ public class RegisterServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String name = request.getParameter("name");
         String birthday = request.getParameter("birthday");
         String email = request.getParameter("email");
@@ -83,9 +83,9 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         String phone = request.getParameter("phone");
-           System.out.println("runinto");
-        User newUser = new User(name, password, phone, email, 1, 1,address);
-        System.out.println("newUser++"+newUser);
+        System.out.println("runinto");
+        User newUser = new User(name, password, phone, email, 0, 1, address);
+        System.out.println("newUser++" + newUser);
 
         // Kiểm tra xác nhận mật khẩu
         if (!password.equals(confirmPassword)) {
@@ -113,7 +113,7 @@ public class RegisterServlet extends HttpServlet {
                     response.sendRedirect("registersuccess.jsp");
                 } else {
                     System.out.println("Register false");
-                    //response.sendRedirect("registrationFailed.jsp");
+                    // response.sendRedirect("registrationFailed.jsp");
                 }
             }
         } catch (SQLException ex) {

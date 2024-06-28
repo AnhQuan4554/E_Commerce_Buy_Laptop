@@ -19,14 +19,14 @@ public class ProductDao extends DbCon {
         List<Product> book = new ArrayList<>();
         try {
 
-            query = "select * from products";
+            query = "select * from product";
             pst = con.prepareStatement(query);
             rs = pst.executeQuery();
             while (rs.next()) {
                 Product row = new Product();
-                row.setId(rs.getInt("id"));
-                row.setName(rs.getString("name"));
-                row.setCategory(rs.getString("category"));
+                row.setProductID(rs.getInt("productID"));
+                row.setProductName(rs.getString("productName"));
+                row.setCategoryID(rs.getInt("categoryID"));
                 row.setPrice(rs.getDouble("price"));
                 row.setImage(rs.getString("image"));
                 book.add(row);
@@ -41,17 +41,17 @@ public class ProductDao extends DbCon {
 
     public boolean addProduct(Product product) {
         try {
-            String sql = "INSERT INTO products(id, name, category, price, image,status,guarantee,description,gpu) Values(?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO product(productID, productName, price, quantityInStock, description,image,categoryID,manufacturerID,voucherCode) Values(?,?,?,?,?,?,?,?,?)";
             PreparedStatement pst = this.con.prepareStatement(sql);
-            pst.setInt(1, product.getId());
-            pst.setString(2, product.getName());
-            pst.setString(3, product.getCategory());
-            pst.setDouble(4, product.getPrice());
-            pst.setString(5, product.getImage());
-            pst.setString(6, product.getStatus());
-            pst.setString(7, product.getGuarantee());
-            pst.setString(8, product.getDescription());
-            pst.setString(9, product.getGpu());
+            pst.setInt(1, product.getProductID());
+            pst.setString(2, product.getProductName());
+            pst.setDouble(3, product.getPrice());
+            pst.setDouble(4, product.getQuantityInStock());
+            pst.setString(5, product.getDescription());
+            pst.setString(6, product.getImage());
+            pst.setInt(7, product.getCategoryID());
+            pst.setInt(8, product.getManufacturerID());
+            pst.setInt(9, product.getVoucherCode());
 
             pst.executeUpdate();
             return true;
@@ -66,21 +66,21 @@ public class ProductDao extends DbCon {
 
     public Product findProduct(String productID) {
         try {
-            query = "SELECT * FROM products WHERE id = '" + productID + "';";
+            query = "SELECT * from product WHERE productID = '" + productID + "';";
             pst = this.con.prepareStatement(query);
             rs = pst.executeQuery();
 
             if (rs.next()) {
                 Product product = new Product();
-                product.setId(rs.getInt(1));
-                product.setName(rs.getString(2));
-                product.setCategory(rs.getString(3));
-                product.setPrice(rs.getDouble(4));
-                product.setImage(rs.getString(5));
-                product.setStatus(rs.getString(6));
-                product.setGuarantee(rs.getString(7));
-                product.setDescription(rs.getString(8));
-                product.setGpu(rs.getString(9));
+                product.setProductID(rs.getInt(1));
+                product.setProductName(rs.getString(2));
+                product.setPrice(rs.getDouble(3));
+                product.setQuantityInStock(4);
+                product.setDescription(rs.getString(5));
+                product.setImage(rs.getString(6));
+                product.setCategoryID(rs.getInt(7));
+                product.setVoucherCode(rs.getInt(8));
+
                 return product;
             } else {
                 return null;
@@ -94,18 +94,18 @@ public class ProductDao extends DbCon {
     public boolean updateProduct(Product product) {
         try {
             String sql = "UPDATE products SET "
-                    + "name = ?,"
-                    + "category = ?,"
+                    + "productName = ?,"
+                    + "categoryID = ?,"
                     + "price = ?,"
                     + "image = ?"
-                    + "WHERE id = ?;";
+                    + "WHERE productID = ?;";
             PreparedStatement pst = this.con.prepareStatement(sql);
 
-            pst.setString(1, product.getName());
-            pst.setString(2, product.getCategory());
+            pst.setString(1, product.getProductName());
+            pst.setInt(2, product.getCategoryID());
             pst.setDouble(3, product.getPrice());
             pst.setString(4, product.getImage());
-            pst.setInt(5, product.getId());
+            pst.setInt(5, product.getProductID());
 
             pst.executeUpdate();
             return true;
@@ -118,7 +118,7 @@ public class ProductDao extends DbCon {
 
     public boolean deleteProduct(int productId) {
         try {
-            String sql = "DELETE FROM products where id = '" + productId + "'";
+            String sql = "DELETE from product where id = '" + productId + "'";
             PreparedStatement pst = this.con.prepareStatement(sql);
             pst.executeUpdate();
             return true;
@@ -132,7 +132,7 @@ public class ProductDao extends DbCon {
     public Product getSingleProduct(int id) {
         Product row = null;
         try {
-            query = "select * from products where id=? ";
+            query = "select * from product where id=? ";
 
             pst = con.prepareStatement(query);
             pst.setInt(1, id);
@@ -140,9 +140,9 @@ public class ProductDao extends DbCon {
 
             while (rs.next()) {
                 row = new Product();
-                row.setId(rs.getInt("id"));
-                row.setName(rs.getString("name"));
-                row.setCategory(rs.getString("category"));
+                row.setProductID(rs.getInt("productID"));
+                row.setProductName(rs.getString("productName"));
+                row.setCategoryID(rs.getInt("categoryID"));
                 row.setPrice(rs.getDouble("price"));
                 row.setImage(rs.getString("image"));
             }
@@ -159,9 +159,9 @@ public class ProductDao extends DbCon {
         try {
             if (cartList.size() > 0) {
                 for (Cart item : cartList) {
-                    query = "select price from products where id=?";
+                    query = "select price from product where productID=?";
                     pst = con.prepareStatement(query);
-                    pst.setInt(1, item.getId());
+                    pst.setInt(1, item.getProductID());
                     rs = pst.executeQuery();
                     while (rs.next()) {
                         sum += rs.getDouble("price") * item.getQuantity();
@@ -181,7 +181,7 @@ public class ProductDao extends DbCon {
     public List<Product> getProductsByPrice(String sortType) {
         List<Product> productList = new ArrayList<>();
         try {
-            String query = "SELECT * FROM products";
+            String query = "SELECT * from product";
             if (sortType != null && !sortType.isEmpty()) {
                 if (sortType.equals("lowtohigh")) {
                     query += " ORDER BY price ASC";
@@ -195,9 +195,9 @@ public class ProductDao extends DbCon {
             rs = pst.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setCategory(rs.getString("category"));
+                product.setProductID(rs.getInt("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setCategoryID(rs.getInt("categoryID"));
                 product.setPrice(rs.getDouble("price"));
                 product.setImage(rs.getString("image"));
                 productList.add(product);
@@ -212,7 +212,7 @@ public class ProductDao extends DbCon {
     public List<Product> getProductsByCategory(String category) {
         List<Product> productList = new ArrayList<>();
         try {
-            String query = "SELECT * FROM products";
+            String query = "SELECT * from product";
             if (category != null && !category.isEmpty()) {
                 query += " WHERE category = ?";
             }
@@ -226,9 +226,9 @@ public class ProductDao extends DbCon {
             rs = pst.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setCategory(rs.getString("category"));
+                product.setProductID(rs.getInt("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setCategoryID(rs.getInt("categoryID"));
                 product.setPrice(rs.getDouble("price"));
                 product.setImage(rs.getString("image"));
                 productList.add(product);
