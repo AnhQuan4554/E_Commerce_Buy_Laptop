@@ -1,15 +1,16 @@
-<%-- Document : admin Created on : Dec 12, 2023, 12:32:45 PM Author : welcome
---%> <%@page import="DAO.DbCon"%> <%@page import="DAO.ProductDao"%> <%@page
-import="Model.*"%> <%@page import="java.util.*"%> <%@page
-import="java.text.DecimalFormat"%> <%@ page language="java"
-contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> <% User
-auth = (User) request.getSession().getAttribute("auth"); if (auth != null) {
-request.setAttribute("person", auth); } ProductDao pd = new ProductDao();
-List<Product>
-  products = pd.getAllProducts(); request.getSession().setAttribute("products",
-  products); %>
+<%@page import="java.util.*"%>
+<%@page import="Model.*"%>
+<%@page import="DAO.DbCon"%>
+<%@page import="DAO.ProductDao"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% 
+     ProductDao pd = new ProductDao();
+    List<Product> products = pd.getAllProducts();
+  request.getSession().setAttribute("products",products); %>
   <!DOCTYPE html>
-  <html lang="en">
+  <html>
     <head>
       <style>
         body {
@@ -54,7 +55,6 @@ List<Product>
           background-color: #0056b3;
           color: #fff;
         }
-
         table {
           width: 100%;
           border-collapse: collapse;
@@ -94,7 +94,6 @@ List<Product>
     </head>
     <body>
       <%@include file="/includes/navbar.jsp"%>
-
       <div class="container-admin">
         <header class="management-header">
           <p>Management Page</p>
@@ -104,7 +103,6 @@ List<Product>
             >Add New Product</a
           >
         </header>
-
         <table>
           <thead>
             <tr style="background-color: #dc3545">
@@ -119,20 +117,20 @@ List<Product>
           <tbody>
             <% if (!products.isEmpty()) { for (Product p : products) { %>
             <tr>
-              <td><%=p.getId() %></td>
-              <td><%=p.getName() %></td>
-              <td><%=p.getCategory() %></td>
+              <td><%=p.getProductID()%></td>
+              <td><%=p.getProductName() %></td>
+              <td><%=p.getCategoryID() %></td>
               <td><%=p.getPrice() %></td>
               <td><%=p.getImage() %></td>
               <td>
                 <a
                   class="update-btn"
-                  href="/updateProduct?title=Edit+Product&action=updateProduct&productID=<%=p.getId()%>"
+                  href="/updateProduct?title=Edit+Product&action=updateProduct&productID=<%=p.getProductID()%>"
                   >Update</a
                 >
                 <a
                   class="delete-btn"
-                  href="/deleteProduct?productID=<%=p.getId()%>"
+                  href="/deleteProduct?productID=<%=p.getProductID()%>"
                   >Delete</a
                 >
               </td>

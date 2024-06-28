@@ -2,77 +2,53 @@ package Model;
 
 public class Product {
 
-    private int id;
-    private String name;
-    private String category;
+    private int productID;
+    private String productName;
     private Double price;
-    private String image;
-    private String status;
-    private String guarantee;
+    private int quantityInStock;
     private String description;
-        private String gpu;
-
+    private String image;
+    private int categoryID;
+    private int manufacturerID;
+    private int voucherCode;
 
     public Product() {
     }
 
-    public Product(String name, String category, Double price, String image) {
-        this.name = name;
-        this.category = category;
+    public Product(int productID, String productName, Double price, int quantityInStock, String description, String image, int categoryID, int manufacturerID, int voucherCode) {
+        this.productID = productID;
+        this.productName = productName;
         this.price = price;
-        this.image = image;
-    }
-
-    public Product(int id, String name, String category, Double price, String image) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.image = image;
-    }
-
-    public Product(String name, String category, Double price, String image, String status, String guarantee, String description,String gpu) {
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.image = image;
-        this.status = status;
-        this.guarantee = guarantee;
+        this.quantityInStock = quantityInStock;
         this.description = description;
-        this.gpu = gpu;
+        this.image = image;
+        this.categoryID = categoryID;
+        this.manufacturerID = manufacturerID;
+        this.voucherCode = voucherCode;
     }
 
-    public String getGpu() {
-        return gpu;
+    public Product(int productID, String productName, Double price, String image, int categoryID) {
+        this.productID = productID;
+        this.productName = productName;
+        this.price = price;
+        this.image = image;
+        this.categoryID = categoryID;
     }
 
-    public void setGpu(String gpu) {
-        this.gpu = gpu;
+    public int getProductID() {
+        return productID;
     }
 
-    public int getId() {
-        return id;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getProductName() {
+        return productName;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public Double getPrice() {
@@ -83,28 +59,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public int getQuantityInStock() {
+        return quantityInStock;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getGuarantee() {
-        return guarantee;
-    }
-
-    public void setGuarantee(String guarantee) {
-        this.guarantee = guarantee;
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
     }
 
     public String getDescription() {
@@ -115,10 +75,42 @@ public class Product {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Product [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price + ", image="
-                + image + "]";
+    public String getImage() {
+        return image;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public int getManufacturerID() {
+        return manufacturerID;
+    }
+
+    public void setManufacturerID(int manufacturerID) {
+        this.manufacturerID = manufacturerID;
+    }
+
+    public int getVoucherCode() {
+        return voucherCode;
+    }
+
+    public void setVoucherCode(int voucherCode) {
+        this.voucherCode = voucherCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "productID=" + productID + ", productName=" + productName + ", price=" + price + ", quantityInStock=" + quantityInStock + ", description=" + description + ", image=" + image + ", categoryID=" + categoryID + ", manufacturerID=" + manufacturerID + ", voucherCode=" + voucherCode + '}';
+    }
+
+    
 }

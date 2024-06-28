@@ -26,11 +26,12 @@ public class UserDao extends DbCon {
             rs = pst.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setUserID(rs.getInt("id"));
-                user.setUsername(rs.getString("name"));
+                user.setUserID(rs.getInt("userID"));
+                user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
                 user.setRole(rs.getInt("role"));
-
+                user.setAddress(rs.getString("address"));
+                user.setPhone(rs.getString("phone"));
             }
         } catch (SQLException e) {
             System.out.print(e.getMessage());
@@ -77,8 +78,8 @@ public class UserDao extends DbCon {
             rs = pst.executeQuery();
             while (rs.next()) {
                 User row = new User();
-                row.setUserID(rs.getInt("id"));
-                row.setUsername(rs.getString("name"));
+                row.setUserID(rs.getInt("userID"));
+                row.setUsername(rs.getString("username"));
                 // row.setBirthday(rs.getString("birthday"));
                 row.setAddress(rs.getString("address"));
                 row.setPhone(rs.getString("phone"));
@@ -102,8 +103,8 @@ public class UserDao extends DbCon {
             rs = pst.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setUserID(rs.getInt("id"));
-                user.setUsername(rs.getString("name"));
+                user.setUserID(rs.getInt("userID"));
+                user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
                 user.setAddress(rs.getString("address"));
                 // user.setBirthday(rs.getString("birthday"));
@@ -119,7 +120,7 @@ public class UserDao extends DbCon {
     public boolean updateUser(User updatedUser) {
         boolean updated = false;
         try {
-            query = "update user set name=?, email=?, address=?, birthday=?, phone=? where email=?";
+            query = "update user set username=?, email=?, address=?, birthday=?, phone=? where email=?";
             pst = con.prepareStatement(query);
             pst.setString(1, updatedUser.getUsername());
             pst.setString(2, updatedUser.getEmail());
@@ -127,7 +128,6 @@ public class UserDao extends DbCon {
             // pst.setString(4, updatedUser.getBirthday());
             pst.setString(5, updatedUser.getPhone());
             pst.setString(6, updatedUser.getEmail());
-            System.out.println("query+++" + query);
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
                 updated = true;
@@ -140,7 +140,7 @@ public class UserDao extends DbCon {
 
     public boolean deleteClient(int clientID) {
         try {
-            String sql = "DELETE FROM user where id = '" + clientID + "'";
+            String sql = "DELETE FROM user where userID = '" + clientID + "'";
             PreparedStatement pst = this.con.prepareStatement(sql);
             pst.executeUpdate();
             return true;

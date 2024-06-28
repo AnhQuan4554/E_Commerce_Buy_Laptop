@@ -29,15 +29,15 @@ public class AddProduct extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -56,10 +56,10 @@ public class AddProduct extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -72,34 +72,31 @@ public class AddProduct extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
 
-            String idProduct = (String) request.getParameter("idProduct");
-            System.out.println("idProduct++++" + idProduct);
-            String nameProduct = (String) request.getParameter("nameProduct");
-            String priceProduct = (String) request.getParameter("priceProduct");
-            String category = (String) request.getParameter("category");
-            String status = (String) request.getParameter("status");
-            String guarantee = (String) request.getParameter("guarantee");
+            int productID = Integer.parseInt(request.getParameter("idProduct")) ;
+            String productName = (String) request.getParameter("nameProduct");
+            Double price = Double.parseDouble(request.getParameter("priceProduct"));
+            int quantityInStock = Integer.parseInt(request.getParameter("quantityInStock"));
             String description = (String) request.getParameter("description");
-            String gpu = (String) request.getParameter("gpu");
+            String category = request.getParameter("category");
+            int manufacturerID = Integer.parseInt(request.getParameter("manufacturerID"));
+            int voucherCode = Integer.parseInt(request.getParameter("voucherCode"));
             Part part = request.getPart("imageProduct");
-
             String realPath = request.getServletContext().getRealPath("/product-image");
-            String fileName = Path.of(part.getSubmittedFileName()).getFileName().toString();
+            String image = Path.of(part.getSubmittedFileName()).getFileName().toString();
 
-            part.write(realPath + "/" + fileName);
+            part.write(realPath + "/" + image);
             ProductDao pd = new ProductDao();
-            Product product = new Product(nameProduct, category,
-                    Double.parseDouble(priceProduct), fileName, status, guarantee, description,gpu);
+            Product product = new Product(productID,productName,price,quantityInStock,description,image,1,1,1);
             if (pd.addProduct(product)) {
                 System.out.println("Add successfully!");
                 response.sendRedirect("admin/admin.jsp");

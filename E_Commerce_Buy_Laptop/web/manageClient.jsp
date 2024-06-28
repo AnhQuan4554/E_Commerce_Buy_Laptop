@@ -1,11 +1,18 @@
-<%@page import="DAO.DbCon"%> <%@page import="DAO.UserDao"%> <%@page
-import="Model.*"%> <%@page import="java.util.*"%> <%@page
-import="java.text.DecimalFormat"%> <%@ page language="java"
-contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> <% User
-auth = (User) request.getSession().getAttribute("auth"); if (auth != null) {
-request.setAttribute("person", auth); } UserDao ud = new UserDao(); List<User>
-  clients = ud.getAllClients(); request.getSession().setAttribute("clients",
-  clients); %>
+<%@page import="DAO.DbCon"%>
+<%@page import="DAO.UserDao"%> 
+<%@page import="Model.*"%>
+<%@page import="java.util.*"%> 
+<%@page import="java.text.DecimalFormat"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% User auth = (User) request.getSession().getAttribute("auth"); 
+if (auth != null) {
+request.setAttribute("person", auth); } 
+UserDao ud = new UserDao(); 
+List<User> clients = ud.getAllClients(); request.getSession().setAttribute("clients", clients);
+  
+%>
   <!DOCTYPE html>
   <html>
     <head>
@@ -96,7 +103,7 @@ request.setAttribute("person", auth); } UserDao ud = new UserDao(); List<User>
             <tr>
               <th>Number</th>
               <th>Name</th>
-              <th>Birthday</th>
+              <th>Status</th>
               <th>Address</th>
               <th>Phone number</th>
               <th>Email</th>
@@ -108,15 +115,15 @@ request.setAttribute("person", auth); } UserDao ud = new UserDao(); List<User>
             %>
             <tr>
               <td><%= stt++ %></td>
-              <td><%=c.getName() %></td>
-              <td><%=c.getBirthday() %></td>
+              <td><%=c.getUsername() %></td>
+              <td><%=c.getIsActive() %></td>
               <td><%=c.getAddress() %></td>
               <td><%=c.getPhone() %></td>
               <td><%=c.getEmail() %></td>
               <td>
                 <a
                   class="delete-button"
-                  href="/deleteClient?clientId=<%=c.getId()%>"
+                  href="/deleteClient?clientId=<%=c.getUserID()%>"
                   >Delete</a
                 >
               </td>

@@ -258,13 +258,13 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
     <%@include file="/includes/navbar.jsp"%>
     <div class="container-detail">
       <div class="product-name">
-        <h2>${productDetail.name}</h2>
+        <h2>${productDetail.productName}</h2>
       </div>
       <div class="product">
         <div class="product-img">
           <img
             src="product-image/${productDetail.image}"
-            alt="${productDetail.name}"
+            alt="${productDetail.productName}"
           />
         </div>
         <div class="product-contact">
@@ -276,20 +276,20 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
           </p>
           <p class="product-category">
             Category:
-            <c:if test="${not empty productDetail.category}"
-              >${productDetail.category}</c:if
+            <c:if test="${not empty productDetail.categoryID}"
+              >${productDetail.categoryID}</c:if
             >
           </p>
           <p class="product-status">
-            Status:
-            <c:if test="${not empty productDetail.status}"
-              >${productDetail.status}</c:if
+            Remaining:
+            <c:if test="${not empty productDetail.quantityInStock}"
+              >${productDetail.quantityInStock}</c:if
             >
           </p>
           <p class="product-gua">
-            Guarantee:
-            <c:if test="${not empty productDetail.guarantee}"
-              >${productDetail.guarantee}</c:if
+            VoucherCode:
+            <c:if test="${not empty productDetail.voucherCode}"
+              >${productDetail.voucherCode}</c:if
             >
           </p>
           <div class="specs">
@@ -377,13 +377,15 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
           <div class="buttons">
             <button class="btn-cart">
               <a
-                href="/add-to-cart?id=${productDetail.id}&name=${productDetail.name}&price=${productDetail.price}&category=${productDetail.category}&image=${productDetail.image}"
+                href="/add-to-cart?id=${productDetail.productID}&name=${productDetail.productName}&price=${productDetail.price}&category=${productDetail.categoryID}&image=${productDetail.image}"
                 >Add to Cart</a
               >
             </button>
             <br />
             <button class="btn-cart">
-              <a href="order-now?quantity=1&id=${productDetail.id}">Buy Now</a>
+              <a href="order-now?quantity=1&id=${productDetail.productID}"
+                >Buy Now</a
+              >
             </button>
           </div>
         </div>

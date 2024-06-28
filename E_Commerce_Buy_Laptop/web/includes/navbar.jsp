@@ -274,6 +274,15 @@ pageEncoding="ISO-8859-1"%>
           </c:when>
         </c:choose>
       </div>
+      <div>
+        <c:choose>
+          <c:when test="${empty sessionScope.auth}">
+            <a class="navbar-link-to1" href="login.jsp">
+              <p>Login</p>
+            </a>
+          </c:when>
+        </c:choose>
+      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
