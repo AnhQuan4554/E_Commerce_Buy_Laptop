@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Order;
+import Model.Order_Detail;
 import Model.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,51 +19,40 @@ public class OrderDao extends DbCon {
         super();
     }
 
-    public boolean insertOrder(Order model) {
-        boolean result = false;
-        try {
-            query = "insert into orders (p_id, u_id, o_quantity, o_date,o_recipientName,o_phoneNumber,o_address) values(?,?,?,?,?,?,?)";
-            pst = con.prepareStatement(query);
-            pst.setInt(1, model.getId());
-            pst.setInt(2, model.getUid());
-            pst.setInt(3, model.getQuantity());
-            pst.setString(4, model.getDate());
-             pst.setString(5, model.getRecipientName());
-              pst.setString(6, model.getPhoneNumber());
-               pst.setString(7, model.getAddress());
-             
-            pst.executeUpdate();
-            result = true;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return result;
-    }
+   
 
-    public List<Order> userOrders(int id) {
-    List<Order> list = new ArrayList<>();
+    public List<Order_Detail> userOrders(int id) {
+    List<Order_Detail> list = new ArrayList<>();
 
     try {
-        query = "SELECT o.o_id, o.o_date, p.name, p.category,p.price, o.o_quantity FROM orders o JOIN products p ON o.p_id = p.id WHERE o.u_id = ? ORDER BY o.o_id DESC";
-        pst = con.prepareStatement(query);
-        pst.setInt(1, id);
-        rs = pst.executeQuery();
-        
-        while (rs.next()) {
-            Order order = new Order();
-            order.setId(rs.getInt("o_id"));
-            order.setDate(rs.getString("o_date"));
-            order.setName(rs.getString("name"));
-            order.setCategory(rs.getString("category"));
-            order.setQuantity(rs.getInt("o_quantity"));
-            order.setPrice(rs.getDouble("price")*rs.getInt("o_quantity"));
-            list.add(order);
+        query = "SELECT * FROM `order` WHERE customerID = ?";
+        PreparedStatement cartPst = con.prepareStatement(query);
+        cartPst.setInt(1, id);
+        ResultSet cartRs = cartPst.executeQuery();
+
+        while (cartRs.next()) {
+             int orderID = cartRs.getInt("orderID");
+               String itemQuery = "SELECT * FROM orderdetail WHERE orderID = ?";
+            PreparedStatement itemPst = con.prepareStatement(itemQuery);
+            itemPst.setInt(1, orderID);
+            ResultSet itemRs = itemPst.executeQuery();
+             while (itemRs.next()) {
+                Order_Detail order_Detail = new Order_Detail();
+                order_Detail.setOrderID(itemRs.getInt("orderID"));
+                order_Detail.setProductID(itemRs.getInt("productID"));
+                order_Detail.setQuantity(itemRs.getInt("quantity"));
+                order_Detail.setPriceEach(itemRs.getDouble("priceEach"));
+             order_Detail.setSubTotal(itemRs.getDouble("subTotal"));
+
+                list.add(order_Detail);
+            }
         }
 //        System.out.println("list+++"+list);
     } catch (Exception e) {
         e.printStackTrace();
         System.out.println(e.getMessage());
     }
+        System.out.println("list order when getall++"+list);
     return list;
 }
 
@@ -81,4 +71,54 @@ public class OrderDao extends DbCon {
         }
         //return result;
     }
+    public Order_Detail createOrderDetail(Order_Detail order_Detail) {
+    try {
+        String query = "INSERT INTO orderdetail (productID, quantity, priceEach, subTotal) VALUES (?, ?, ?, ?)";
+        PreparedStatement pst = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+        pst.setInt(1, order_Detail.getProductID());
+        pst.setInt(2, order_Detail.getQuantity());
+        pst.setDouble(3, order_Detail.getPriceEach());
+        pst.setDouble(4, order_Detail.getSubTotal());
+        
+        int affectedRows = pst.executeUpdate();
+        if (affectedRows == 0) {
+            throw new SQLException("Creating order detail failed, no rows affected.");
+        }
+
+        try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                order_Detail.setOrderID(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating order detail failed, no ID obtained.");
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return order_Detail;
+}
+     public Order createOrder(Order order) {
+    
+    try {
+        System.out.println("");
+        String query = "INSERT INTO `order`  (orderId, customerID, createdDate, note,status) VALUES (?, ?, ?, ?,?)";
+        PreparedStatement pst = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+        pst.setInt(1, order.getOrderId());
+        pst.setInt(2, order.getCustomerID());
+        pst.setString(3, order.getCreatedDate());
+        pst.setString(4, order.getNote());
+        pst.setString(5, order.getStatus());
+
+        
+        int affectedRows = pst.executeUpdate();
+        if (affectedRows == 0) {
+            throw new SQLException("Creating order detail failed, no rows affected.");
+        }
+
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return order;
+}
+
 }

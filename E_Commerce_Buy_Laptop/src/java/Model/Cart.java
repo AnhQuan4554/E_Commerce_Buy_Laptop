@@ -11,7 +11,7 @@ public class Cart extends Product {
 
     ;
         public Cart(int p_id, String name, String category, Double price, String image, int quantity, String email) {
-        super(name, category, price, image);
+//        super(name, category, price, image);
         this.email = email;
         this.quantity = quantity;
         this.p_id = p_id;

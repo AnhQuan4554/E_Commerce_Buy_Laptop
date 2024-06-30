@@ -196,7 +196,7 @@ if(sortType==null&&category==null){
 
         <div class="container-index">
             <div class="card-header my-3">
-                &nbsp;&nbsp;&nbsp;&nbsp;<h3 class="text-h3">All Products</h3>
+             <h3 class="text-h3">All Products</h3>
             </div>
             <div class="row">
                 <c:if test="${not empty products}">
@@ -212,7 +212,7 @@ if(sortType==null&&category==null){
                                         <div>
                                             <a class="btn btn-dark" 
                                                href="/add-to-cart?id=${p.productID}&name=${p.productName}&price=${p.price}&category=${p.categoryID}&image=${p.image}">Add to Cart</a>
-                                            <a class="btn btn-primary" href="order-now?quantity=1&id=${p.productID}">Buy Now</a>
+                                            <a class="btn btn-primary" href="order-now?quantity=1&productID=${p.productID}&priceEach=${p.price}">Buy Now</a>
                                         </div>
                                     </div>
                                 </div>

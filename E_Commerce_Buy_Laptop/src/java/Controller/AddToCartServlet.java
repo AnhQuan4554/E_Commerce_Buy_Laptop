@@ -2,6 +2,8 @@ package Controller;
 
 import DAO.CartDao;
 import Model.Cart;
+import Model.Cart_Item;
+import Model.Shopping_Cart;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,44 +42,22 @@ public class AddToCartServlet extends HttpServlet {
 
             String image = request.getParameter("image");
             if (auth.getEmail() == "" || auth.getEmail() == null) {
-                // Cart cart = new Cart(name,category,price, image, 1, "");
-            } else {
-                Cart cart = new Cart(p_id, name, category, price, image, 1, auth.getEmail());
+                response.sendRedirect("/login_require.jsp");
+            } else { 
                 CartDao cartDao = new CartDao();
-                boolean check = cartDao.addCart(cart);
-                if (check) {
+                Cart_Item cart_Item  =new Cart_Item(p_id, name, 1, price);
+                 Cart_Item newCart_Item =  cartDao.createCartItem(cart_Item);
+               
+                  Shopping_Cart shopping_Cart = new Shopping_Cart(newCart_Item.getCartID(), auth.getUserID());
+                
+                  Shopping_Cart newShoppingCart = cartDao.createShoppingCart(shopping_Cart);
+             
+                if (newCart_Item != null  && newShoppingCart != null) {
                     response.sendRedirect("/notify/addCartSuccess.jsp");
                 }
             }
 
-            // System.out.println("CHECK++++"+check);
-            // if( check){
-            // response.sendRedirect("index.jsp");
-            // }
-            // HttpSession session = request.getSession();
-            // ArrayList<Cart> cart_list = (ArrayList<Cart>)
-            // session.getAttribute("cart-list");
-            // if (cart_list == null) {
-            // cartList.add(cm);
-            // session.setAttribute("cart-list", cartList);
-            // response.sendRedirect("index.jsp");
-            // } else {
-            // cartList = cart_list;
-            //
-            // boolean exist = false;
-            // for (Cart c : cart_list) {
-            // if (c.getId() == id) {
-            // exist = true;
-            // out.println("<h3 style='color:crimson; text-align: center'>Item Already in
-            // Cart. <a href='cart.jsp'>GO to Cart Page</a></h3>");
-            // }
-            // }
-            //
-            // if (!exist) {
-            // cartList.add(cm);
-            // response.sendRedirect("index.jsp");
-            // }
-            // }
+         
         }
     }
 

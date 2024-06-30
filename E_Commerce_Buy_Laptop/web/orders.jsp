@@ -97,12 +97,12 @@ request.setAttribute("dcf", dcf);
                     <c:if test="${not empty orders}">
                         <c:forEach var="o" items="${orders}">
                             <tr>
-                                <td>${o.name}</td>
-                                <td>${o.category}</td>
+                                <td>${o.orderID}</td>
+                                <td>${o.productID}</td>
                                 <td>${o.quantity}</td>
-                                <td>${o.price}</td>
-                                <td>${o.date}</td>
-                                <td><a class="btn btn-sm btn-danger" href="cancel-order?id=${o.id}">Cancel Order</a></td>
+                                <td>${o.priceEach}</td>
+                                <td>${o.subTotal}</td>
+                                <td><a class="btn btn-sm btn-danger" href="cancel-order?id=${o.orderID}">Cancel Order</a></td>
                             </tr>
                         </c:forEach>
                     </c:if>

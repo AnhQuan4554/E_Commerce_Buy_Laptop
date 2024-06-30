@@ -5,7 +5,6 @@
 package DAO;
 
 import Model.*;
-import Model.*;
 import java.sql.*;
 import java.util.*;
 
@@ -23,85 +22,37 @@ public class CartDao extends DbCon {
         super();
     }
 
-    public boolean addCart(Cart cart) {
-        boolean success = false;
-
+    public List<Cart_Item> getAllCarts(int userID) {
+        System.out.println("getAllCarts+++" + userID);
+        List<Cart_Item> cartItemList = new ArrayList<>();
         try {
-            String selectQuery = "SELECT * FROM carts WHERE email = ? AND name = ?";
-            PreparedStatement selectPst = con.prepareStatement(selectQuery);
-            selectPst.setString(1, cart.getEmail());
-            selectPst.setString(2, cart.getName());
-            ResultSet rsSelect = selectPst.executeQuery();
-
-            if (rsSelect.next()) {
-
-                // Nếu sản phẩm đã tồn tại trong giỏ hàng của người dùng, thực hiện cập nhật số
-                // lượng
-                int existingQuantity = rsSelect.getInt("quantity");
-                int newQuantity = existingQuantity + 1; // Tăng số lượng sản phẩm lên 1
-                String updateQuery = "UPDATE carts SET quantity = ? WHERE email = ? AND name = ?";
-                PreparedStatement updatePst = con.prepareStatement(updateQuery);
-                updatePst.setInt(1, newQuantity);
-                updatePst.setString(2, cart.getEmail());
-                updatePst.setString(3, cart.getName());
-                int rowsAffected = updatePst.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    System.out.println("Quantity updated successfully for: " + cart.getName());
-                    success = true;
-                }
-            } else {
-                String query = "INSERT INTO carts (p_id,name,category,price, image, quantity, email) VALUES (?,?,?, ?, ?,?,?)";
-                PreparedStatement pst = con.prepareStatement(query);
-                // System.out.println("id when add++"+cart.getP_id());
-                pst.setInt(1, cart.getP_id());
-                pst.setString(2, cart.getName());
-                pst.setString(3, cart.getCategory());
-                pst.setDouble(4, cart.getPrice());
-                pst.setString(5, cart.getImage());
-                pst.setInt(6, cart.getQuantity());
-                pst.setString(7, cart.getEmail());
-
-                int rowsAffected = pst.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    System.out.println("Cart added successfully: " + cart.getName());
-                    success = true;
-                }
-            }
-            ////
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return success;
-    }
-
-    public List<Cart> getAllCarts(String email) {
-        List<Cart> cartList = new ArrayList<>();
-        try {
-            String query = "SELECT * FROM carts WHERE email = ?";
+            String query = "SELECT * FROM shoppingcart WHERE customerID = ?";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1, email);
+            pst.setInt(1, userID);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                Cart cart = new Cart();
-                cart.setId(rs.getInt("id"));
-                cart.setP_id(rs.getInt("p_id"));
-                cart.setName(rs.getString("name"));
-                cart.setCategory(rs.getString("category"));
-                cart.setPrice(rs.getDouble("price"));
-                cart.setImage(rs.getString("image"));
-                cart.setQuantity(rs.getInt("quantity"));
-                cartList.add(cart);
+                int cartID = rs.getInt("cartID");
+                String itemQuery = "SELECT * FROM cartitem WHERE cartID = ?";
+                PreparedStatement itemPst = con.prepareStatement(itemQuery);
+                itemPst.setInt(1, cartID);
+                ResultSet itemRs = itemPst.executeQuery();
+
+                while (itemRs.next()) {
+                    Cart_Item cart_Item = new Cart_Item();
+                    cart_Item.setCartID(itemRs.getInt("cartID"));
+                    cart_Item.setProductID(itemRs.getInt("productID"));
+                    cart_Item.setProductName(itemRs.getString("productName"));
+                    cart_Item.setQuantity(itemRs.getInt("quantity"));
+                    cart_Item.setPrice(itemRs.getDouble("price"));
+                    cartItemList.add(cart_Item);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        System.out.println("cart list+++" + cartList);
-        return cartList;
+        System.out.println("cart list+++" + cartItemList);
+        return cartItemList;
     }
 
     public boolean deleteCartById(String id) {
@@ -135,5 +86,58 @@ public class CartDao extends DbCon {
             System.out.println(e.getMessage());
         }
         return cartId;
+    }
+
+    // create cart item
+    public Cart_Item createCartItem(Cart_Item cart_Item) {
+        String query = "INSERT INTO cartitem (productID, productName, quantity, price) VALUES (?, ?, ?, ?)";
+        try (
+                PreparedStatement pst = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            pst.setInt(1, cart_Item.getProductID());
+            pst.setString(2, cart_Item.getProductName());
+            pst.setInt(3, cart_Item.getQuantity());
+            pst.setDouble(4, cart_Item.getPrice());
+
+            int affectedRows = pst.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating cart item failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    cart_Item.setCartID(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Creating cart item failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cart_Item;
+    }
+
+    // create shopping cart
+    public Shopping_Cart createShoppingCart(Shopping_Cart shoppingCart) {
+        String query = "INSERT INTO shoppingcart (cartID,customerID, createdDate, updatedDate) VALUES (?, ?, ?,?)";
+        try {
+            PreparedStatement pst = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, shoppingCart.getCartID());
+            pst.setInt(2, shoppingCart.getCustomerID());
+            // get currently time
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            pst.setTimestamp(3, currentTime);
+            pst.setTimestamp(4, currentTime);
+            pst.executeUpdate();
+
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+                shoppingCart.setCartID(rs.getInt(1));
+            }
+            System.out.println("shoppingCart is created ++" + shoppingCart);
+            return shoppingCart;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

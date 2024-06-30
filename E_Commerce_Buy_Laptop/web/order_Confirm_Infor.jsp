@@ -40,7 +40,7 @@
 <form action="order-now" method="post">
   <div class="form-group" style="display: none">
     <input
-      value=${productDetail.id}
+      value=${productDetail.productID}
       type="text"
       class="form-control"
       id="productID"
@@ -83,9 +83,9 @@
     <div class="form-group" >
                 <label for="orderInfo">Order Information</label>
                 <div class="product-img-des">
-                    <img src="product-image/${productDetail.image}" alt="${productDetail.name}" />
+                    <img src="product-image/${productDetail.image}" alt="${productDetail.productName}" />
                     <textarea class="form-control order-info-textarea" id="orderInfo" name="orderInfo" rows="3" readonly>
-                        Product Name: ${productDetail.name}
+                        Product Name: ${productDetail.productName}
                         Product Price: ${productDetail.price}
                     </textarea>
                 </div>
@@ -99,6 +99,17 @@
       name="quantity"
       value =1
       placeholder="Enter quantity"
+    />
+  </div>
+  <div class="form-group">
+   
+    <input
+      type="number"
+      class="form-control"
+      id="priceEach"
+      name="priceEach"
+      value =${productDetail.price}
+      style="display: none"
     />
   </div>
   <button type="submit" class="btn btn-primary">Submit Order</button>

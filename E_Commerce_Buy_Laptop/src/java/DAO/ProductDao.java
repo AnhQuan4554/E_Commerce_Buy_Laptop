@@ -80,7 +80,7 @@ public class ProductDao extends DbCon {
                 product.setImage(rs.getString(6));
                 product.setCategoryID(rs.getInt(7));
                 product.setVoucherCode(rs.getInt(8));
-
+                System.out.println("product when find+"+ product);
                 return product;
             } else {
                 return null;

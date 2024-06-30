@@ -10,10 +10,7 @@
 <%
 DecimalFormat dcf = new DecimalFormat("#.##");
 request.setAttribute("dcf", dcf);
-//User auth = (User) request.getSession().getAttribute("auth");
-//if (auth != null) {
-//    request.setAttribute("person", auth);
-//}
+
 %>
 <!DOCTYPE html>
 <html>
@@ -61,14 +58,15 @@ request.setAttribute("dcf", dcf);
             margin-top: 20px;
         }
 
-        th, td {
+        th,td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: center;
         }
 
         th {
             background-color: #f2f2f2;
+            text-align: center !important;
+
         }
 
         .form-inline {
@@ -143,30 +141,31 @@ request.setAttribute("dcf", dcf);
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Category</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>Buy Now</th>
                     <th>Cancel</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="c" items="${cartList}">
                     <tr>
-                        <td>${c.name}</td>
-                        <td>${c.category}</td>
+                        <td>${c.productName}</td>
                         <td>${dcf.format(c.price)}</td>
                         <td>
                             <form action="/order-now" method="post" class="form-inline">
-                                <input type="hidden" name="id" value="${c.id}" class="form-input">
+                                <input type="hidden" name="id" value="${c.cartID}" class="form-input">
                                 <div class="form-group">
-                                    <a class="btn btn-incre" href="/quantity-inc-dec?action=inc&id=${c.id}">+</a>
+                                    <a class="btn btn-incre" href="/quantity-inc-dec?action=inc&id=${c.cartID}">+</a>
                                     <input style="text-align: center;" type="text" name="quantity" class="form-control" value="${c.quantity}" readonly>
-                                    <a class="btn btn-decre" href="/quantity-inc-dec?action=dec&id=${c.id}">-</a>
+                                    <a class="btn btn-decre" href="/quantity-inc-dec?action=dec&id=${c.cartID}">-</a>
                                 </div>
-                                <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&id=${c.p_id}&order_id=${c.id}">Buy Now</a>
                             </form>
                         </td>
-                        <td><a href="/remove-from-cart?id=${c.id}" class="btn btn-danger">Remove</a></td>
+                        <td>
+                            <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&productID=${c.productID}">Buy Now</a>
+                        </td>
+                        <td><a href="/remove-from-cart?id=${c.cartID}" class="btn btn-danger">Remove</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

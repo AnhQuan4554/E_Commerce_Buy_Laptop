@@ -6,12 +6,14 @@ import DAO.OrderDao;
 import DAO.ProductDao;
 import Model.Cart;
 import Model.Order;
+import Model.Order_Detail;
 import Model.User;
 import Model.Product;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -30,12 +32,12 @@ public class OrderNowServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
+           
 
             User auth = (User) request.getSession().getAttribute("auth");
 
             if (auth != null) {
-                String productId = request.getParameter("id");
+                String productId = request.getParameter("productID");
                 int productQuantity = Integer.parseInt(request.getParameter("quantity"));
                 if (productQuantity <= 0) {
                     productQuantity = 1;
@@ -57,40 +59,45 @@ public class OrderNowServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("xxxx chay vao dassssy");
+        boolean result =false;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
+        OrderDao orderDao = new OrderDao();
+        
+        // get infor from form and create detail
+        int productID = Integer.parseInt(request.getParameter("productID")) ;
 
-        // get infor from form
-        String productID = request.getParameter("productID");
-        String recipientName = request.getParameter("recipientName");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String address = request.getParameter("address");
+        double priceEach = Double.parseDouble(request.getParameter("priceEach")) ;
+        System.out.println("priceEach++++"+priceEach);
         int productQuantity = Integer.parseInt(request.getParameter("quantity"));
         if (productQuantity <= 0) {
             productQuantity = 1;
         }
-
+        
+        double subTotal = priceEach * productQuantity;
         User auth = (User) request.getSession().getAttribute("auth");
-        Order orderModel = new Order();
-        orderModel.setId(Integer.parseInt(productID));
-        orderModel.setUid(auth.getUserID());
-        orderModel.setQuantity(productQuantity);
-        orderModel.setDate(formatter.format(date));
-        orderModel.setRecipientName(recipientName);
-        orderModel.setPhoneNumber(phoneNumber);
-        orderModel.setAddress(address);
-        System.out.println("orderModel+++++" + orderModel);
-        OrderDao orderDao = new OrderDao();
-        boolean result = orderDao.insertOrder(orderModel);
+        Order_Detail order_Detail = new Order_Detail();
+      
+        order_Detail.setProductID(productID);
+        order_Detail.setQuantity(productQuantity);
+        order_Detail.setPriceEach(priceEach);
+        order_Detail.setSubTotal(subTotal);
+        Order_Detail newOrderDetail = orderDao.createOrderDetail(order_Detail);
+        if(newOrderDetail != null){
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        String currentDate = formatter.format(currentTime);
+         Order order  = new Order(newOrderDetail.getOrderID(), auth.getUserID(), currentDate, "note ok", "created success order");
+            System.out.println("order sap duoc tao++"+order);
+         orderDao.createOrder(order);
+        }
+      result = true;
         // delete laptop when order
-        ProductDao productDao = new ProductDao();
-        Product product = productDao.findProduct(productID);
-        CartDao cartDao = new CartDao();
-        int cartId = cartDao.findCartByNameAndCategory(product.getName(), product.getCategory());
-
-        System.out.println("when order will delete id +" + (String.valueOf(cartId)));
-        cartDao.deleteCartById(String.valueOf(cartId));
+//        ProductDao productDao = new ProductDao();
+//        Product product = productDao.findProduct(productID);
+//        CartDao cartDao = new CartDao();
+//        int cartId = cartDao.findCartByNameAndCategory(product.getName(), product.getCategory());
+//
+//        System.out.println("when order will delete id +" + (String.valueOf(cartId)));
+//        cartDao.deleteCartById(String.valueOf(cartId));
         if (result) {
             response.sendRedirect("/notify/addSuccess.jsp");
         }
