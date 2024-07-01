@@ -97,7 +97,7 @@
       class="form-control"
       id="quantity"
       name="quantity"
-      value =1
+      value =${order_Quantity}
       placeholder="Enter quantity"
     />
   </div>

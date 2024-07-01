@@ -67,12 +67,11 @@ public class GetAllOrder extends HttpServlet {
         DecimalFormat dcf = new DecimalFormat("#.##");
         request.setAttribute("dcf", dcf);
         User auth = (User) request.getSession().getAttribute("auth");
-        List<Order_Detail> orders = null;
+        List<Order_Response> orders = null;
         if (auth != null) {
             request.setAttribute("person", auth);
             OrderDao orderDao = new OrderDao();
             orders = orderDao.userOrders(auth.getUserID());
-            System.out.println("orders++"+orders);
             request.setAttribute("orders", orders);
             RequestDispatcher rd = request.getRequestDispatcher("orders.jsp");
             rd.forward(request, response);

@@ -45,6 +45,8 @@ public class OrderNowServlet extends HttpServlet {
                 // get all infor product name
                 ProductDao productDao = new ProductDao();
                 Product productDetail = productDao.findProduct(productId);
+                System.out.println("productQuantity+++"+productQuantity);
+                request.setAttribute("order_Quantity", productQuantity);
                 request.setAttribute("productDetail", productDetail);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/order_Confirm_Infor.jsp");

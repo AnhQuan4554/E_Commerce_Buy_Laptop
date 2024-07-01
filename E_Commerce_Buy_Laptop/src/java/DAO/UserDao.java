@@ -40,35 +40,53 @@ public class UserDao extends DbCon {
     }
 
     public boolean userRegister(User newUser) throws SQLException {
-        boolean success = false;
-        try {
+    boolean success = false;
+    try {
+        // Query để chèn một người dùng mới vào cơ sở dữ liệu
+        String query = "INSERT INTO `new_ecommerce`.`user` (`username`, `password`, `phone`, `email`, `role`, `isActive`, `address`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        pst.setString(1, newUser.getUsername());
+        pst.setString(2, newUser.getPassword());
+        pst.setString(3, newUser.getPhone());
+        pst.setString(4, newUser.getEmail());
+        pst.setInt(5, newUser.getRole());
+        pst.setInt(6, newUser.getIsActive());
+        pst.setString(7, newUser.getAddress());
 
-            // Query để chèn một người dùng mới vào cơ sở dữ liệu
-            query = "INSERT INTO `new_ecommerce`.`user` (`username`,`password`,`phone`, `email`, `role`,`isActive`,`address`)  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        // Thực hiện câu lệnh SQL để chèn dữ liệu vào cơ sở dữ liệu
+        int rowsAffected = pst.executeUpdate();
 
-            pst = con.prepareStatement(query);
-            pst.setString(1, newUser.getUsername());
-            pst.setString(2, newUser.getPassword());
-            pst.setString(3, newUser.getPhone());
-            pst.setString(4, newUser.getEmail());
-            pst.setInt(5, newUser.getRole());
-            pst.setInt(6, newUser.getIsActive());
-            pst.setString(7, newUser.getAddress());
+        // Nếu có ít nhất một dòng bị ảnh hưởng, người dùng đã được đăng ký thành công
+        if (rowsAffected > 0) {
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+                int userID = rs.getInt(1); // Lấy userID của người dùng vừa được tạo
+                newUser.setUserID(userID); // Gán userID cho đối tượng User
 
-            // Thực hiện câu lệnh SQL để chèn dữ liệu vào cơ sở dữ liệu
-            int rowsAffected = pst.executeUpdate();
-
-            // Nếu có ít nhất một dòng bị ảnh hưởng, người dùng đã được đăng ký thành công
-            if (rowsAffected > 0) {
                 System.out.println("Info new User++" + newUser.getUsername() + newUser.getRole());
-                success = true;
 
+                // Thêm customer mới
+                String queryCustomer = "INSERT INTO `new_ecommerce`.`customer` (`customerID`, `customerName`, `birthday`, `address`, `phone`, `email`) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement pstCustomer = con.prepareStatement(queryCustomer);
+                pstCustomer.setInt(1, newUser.getUserID());
+                pstCustomer.setString(2, newUser.getUsername());
+                pstCustomer.setString(3, "address"); // hoặc newUser.getBirthday() nếu có trường này trong User
+                pstCustomer.setString(4, newUser.getAddress());
+                pstCustomer.setString(5, newUser.getPhone());
+                pstCustomer.setString(6, newUser.getEmail());
+
+                int rowsAffected2 = pstCustomer.executeUpdate();
+                if (rowsAffected2 > 0) {
+                    success = true;
+                }
             }
-        } catch (SQLException e) {
-            System.out.print(e);
         }
-        return success;
+    } catch (SQLException e) {
+        System.out.print(e);
     }
+    return success;
+}
+
 
     public List<User> getAllClients() {
         List<User> clients = new ArrayList<>();
