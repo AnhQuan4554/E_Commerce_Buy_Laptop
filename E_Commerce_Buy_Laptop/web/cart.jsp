@@ -163,7 +163,7 @@ request.setAttribute("dcf", dcf);
                             </form>
                         </td>
                         <td>
-                            <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&productID=${c.productID}">Buy Now</a>
+                            <a class="btn btn-primary" href="/order-now?quantity=${c.quantity}&productID=${c.productID}&cartID=${c.cartID}">Buy Now</a>
                         </td>
                         <td><a href="/remove-from-cart?id=${c.cartID}" class="btn btn-danger">Remove</a></td>
                     </tr>

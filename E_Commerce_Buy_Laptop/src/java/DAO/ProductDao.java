@@ -63,6 +63,29 @@ public class ProductDao extends DbCon {
         }
 
     }
+        public List<Product> searchProductsByName(String productName) {
+        List<Product> products = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM product WHERE productName LIKE ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, "%" + productName + "%");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setCategoryID(rs.getInt("categoryID"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImage(rs.getString("image"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return products;
+    }
+
 
     public Product findProduct(String productID) {
         try {

@@ -1,6 +1,8 @@
 package Controller;
 
+import DAO.ProductDao;
 import DAO.UserDao;
+import Model.Product;
 import Model.User;
 
 import java.io.IOException;
@@ -11,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @WebServlet("/user-login")
 public class LoginServlet extends HttpServlet {
@@ -28,11 +31,17 @@ public class LoginServlet extends HttpServlet {
             if (user != null) {
                 System.out.println("auth login is : "+ user);
                 request.getSession().setAttribute("auth", user);
+                    ProductDao pd = new ProductDao();
+                List<Product> products = pd.getAllProducts();
+                System.out.println("prodcut when go to index.jsp"+products);
+                 request.getSession().setAttribute("products", products);
                 response.sendRedirect("index.jsp");
             } else {
                 // Set an error message attribute
                 request.setAttribute("errorMessage", "Invalid email or password. Please try again.");
                 // Forward the request to a login page or display error directly
+             
+               
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
         } catch (Exception e) {

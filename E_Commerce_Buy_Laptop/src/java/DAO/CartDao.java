@@ -55,12 +55,12 @@ public class CartDao extends DbCon {
         return cartItemList;
     }
 
-    public boolean deleteCartById(String id) {
+    public boolean deleteCartById(int id) {
         boolean rowDeleted = false;
         try {
-            String query = "DELETE FROM carts WHERE id = ?";
+            String query = "DELETE FROM cartitem WHERE cartID = ?";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1, id);
+            pst.setInt(1, id);
             rowDeleted = pst.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,6 +69,7 @@ public class CartDao extends DbCon {
 
         return rowDeleted;
     }
+
 
     public int findCartByNameAndCategory(String name, String category) {
         int cartId = -1;

@@ -18,13 +18,7 @@ if (auth != null) {
  String sortType = request.getParameter("sort");
   String category = request.getParameter("category");
   
-if(sortType==null&&category==null){
 
-    ProductDao pd = new ProductDao();
-    List<Product> products = pd.getAllProducts();
-    request.getSession().setAttribute("products", products);
-    
-}
 %>
 <!DOCTYPE html>
 <html>

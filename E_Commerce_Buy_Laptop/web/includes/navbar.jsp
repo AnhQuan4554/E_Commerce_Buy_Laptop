@@ -180,8 +180,15 @@ pageEncoding="ISO-8859-1"%>
           </a>
           <!-- seach -->
           <div class="input-group" style="width: 350px; margin-left: 20px">
-            <input type="text" class="form-control" placeholder="Search" />
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <form action="/search-product" method="get">
+              <input
+                type="text"
+                name="query"
+                class="form-control"
+                placeholder="Search"
+              />
+              <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
           </div>
           <!-- search -->
         </div>

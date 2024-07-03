@@ -56,6 +56,10 @@
         <servlet-name>NewServlet</servlet-name>
         <servlet-class>Model.NewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchProduct</servlet-name>
+        <servlet-class>Controller.SearchProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProduct</servlet-name>
+        <url-pattern>/search_product</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

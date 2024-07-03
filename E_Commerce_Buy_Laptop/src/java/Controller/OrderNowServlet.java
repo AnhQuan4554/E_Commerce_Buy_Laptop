@@ -38,6 +38,7 @@ public class OrderNowServlet extends HttpServlet {
 
             if (auth != null) {
                 String productId = request.getParameter("productID");
+                int cartID = Integer.parseInt(request.getParameter("cartID")) ;
                 int productQuantity = Integer.parseInt(request.getParameter("quantity"));
                 if (productQuantity <= 0) {
                     productQuantity = 1;
@@ -48,6 +49,7 @@ public class OrderNowServlet extends HttpServlet {
                 System.out.println("productQuantity+++"+productQuantity);
                 request.setAttribute("order_Quantity", productQuantity);
                 request.setAttribute("productDetail", productDetail);
+                 request.setAttribute("cartID", cartID);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/order_Confirm_Infor.jsp");
                 dispatcher.forward(request, response);
@@ -64,10 +66,10 @@ public class OrderNowServlet extends HttpServlet {
         boolean result =false;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         OrderDao orderDao = new OrderDao();
-        
+    
         // get infor from form and create detail
         int productID = Integer.parseInt(request.getParameter("productID")) ;
-
+         int cartID = Integer.parseInt(request.getParameter("cartID")) ;
         double priceEach = Double.parseDouble(request.getParameter("priceEach")) ;
         System.out.println("priceEach++++"+priceEach);
         int productQuantity = Integer.parseInt(request.getParameter("quantity"));
@@ -91,15 +93,12 @@ public class OrderNowServlet extends HttpServlet {
             System.out.println("order sap duoc tao++"+order);
          orderDao.createOrder(order);
         }
+      
+       CartDao cartDao = new CartDao();
+       cartDao.deleteCartById(cartID);
       result = true;
         // delete laptop when order
-//        ProductDao productDao = new ProductDao();
-//        Product product = productDao.findProduct(productID);
-//        CartDao cartDao = new CartDao();
-//        int cartId = cartDao.findCartByNameAndCategory(product.getName(), product.getCategory());
-//
-//        System.out.println("when order will delete id +" + (String.valueOf(cartId)));
-//        cartDao.deleteCartById(String.valueOf(cartId));
+ 
         if (result) {
             response.sendRedirect("/notify/addSuccess.jsp");
         }
