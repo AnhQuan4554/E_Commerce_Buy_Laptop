@@ -38,7 +38,11 @@ public class OrderNowServlet extends HttpServlet {
 
             if (auth != null) {
                 String productId = request.getParameter("productID");
-                int cartID = Integer.parseInt(request.getParameter("cartID")) ;
+                  System.out.println("request.getParameter(\"cartID\")"+request.getParameter("cartID"));
+              
+                 
+              
+              
                 int productQuantity = Integer.parseInt(request.getParameter("quantity"));
                 if (productQuantity <= 0) {
                     productQuantity = 1;
@@ -49,7 +53,12 @@ public class OrderNowServlet extends HttpServlet {
                 System.out.println("productQuantity+++"+productQuantity);
                 request.setAttribute("order_Quantity", productQuantity);
                 request.setAttribute("productDetail", productDetail);
-                 request.setAttribute("cartID", cartID);
+                if(request.getParameter("cartID") != null && request.getParameter("cartID") !=""){
+                 
+                     int cartID = Integer.parseInt(request.getParameter("cartID")) ;
+                    request.setAttribute("cartID", cartID);
+                }
+                 
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/order_Confirm_Infor.jsp");
                 dispatcher.forward(request, response);
@@ -69,7 +78,8 @@ public class OrderNowServlet extends HttpServlet {
     
         // get infor from form and create detail
         int productID = Integer.parseInt(request.getParameter("productID")) ;
-         int cartID = Integer.parseInt(request.getParameter("cartID")) ;
+       
+        
         double priceEach = Double.parseDouble(request.getParameter("priceEach")) ;
         System.out.println("priceEach++++"+priceEach);
         int productQuantity = Integer.parseInt(request.getParameter("quantity"));
@@ -95,7 +105,14 @@ public class OrderNowServlet extends HttpServlet {
         }
       
        CartDao cartDao = new CartDao();
-       cartDao.deleteCartById(cartID);
+        if( request.getParameter("cartID") != null &&  request.getParameter("cartID") !=""){
+             String  cartID = request.getParameter("cartID");
+              if(cartID != null){
+            cartDao.deleteCartById(Integer.parseInt(cartID));
+       }
+        }
+      
+      
       result = true;
         // delete laptop when order
  

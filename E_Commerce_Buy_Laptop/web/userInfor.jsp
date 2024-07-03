@@ -9,6 +9,7 @@
         UserDao ud = new UserDao();
         String currentEmail = auth.getEmail();
         User currentUser = ud.getUser(currentEmail);
+        System.out.println("currentUser++"+currentUser);
         request.setAttribute("currentUser", currentUser);
     } else {
         response.sendRedirect("login_require.jsp");
@@ -125,19 +126,19 @@
     <form action="/updateUser" method="POST" onsubmit="return validateForm()">
       <h1>USER INFORMATION</h1>
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" value="${currentUser.getName()}" />
+      <input type="text" id="name" name="name" value="${currentUser.username}" />
 
       <label for="email">Email:</label>
-      <input type="email" id="email" name="email" value="${currentUser.getEmail()}" />
+      <input type="email" id="email" name="email" value="${currentUser.email}" />
       
-      <label for="phone">Phone:</label>
-      <input type="text" id="phone" name="phone" value="${currentUser.getPhone()}" />
+       <label for="phone">Phone</label>
+      <input type="text" id="phone" name="phone" value="${currentUser.phone}" />
       
-      <label for="birthday">Birthday:</label>
-      <input type="text" id="birthday" name="birthday" value="${currentUser.getBirthday()}" />
+      <label for="role">Role</label>
+      <input type="text" id="role" name="role" value="${currentUser.role}" />
       
       <label for="address">Address:</label>
-      <input type="text" id="address" name="address" value="${currentUser.getAddress()}" />
+      <input type="text" id="address" name="address" value="${currentUser.address}" />
 
       <input type="submit" value="Update" />
     </form>

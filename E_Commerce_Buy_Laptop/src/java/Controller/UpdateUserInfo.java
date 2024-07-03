@@ -78,9 +78,9 @@ public class UpdateUserInfo extends HttpServlet {
             String username = (String) request.getParameter("name");
             String phone = (String) request.getParameter("phone");
             String email = (String) request.getParameter("email");
-            String isActive =  request.getParameter("isActive");
+            String role =  request.getParameter("role");
             String address = (String) request.getParameter("address");
-
+    System.out.println("newUser+++" );
             UserDao ud  = new UserDao();
             User newUser = new User(username,phone , email, 1,address);
             System.out.println("newUser+++" + newUser);

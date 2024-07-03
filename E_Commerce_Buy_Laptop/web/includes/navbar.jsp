@@ -171,7 +171,7 @@ pageEncoding="ISO-8859-1"%>
     <div class="container2">
       <div class="logo-navbar">
         <div style="display: flex; align-items: center">
-          <a class="navbar-brand" href="/index.jsp">
+          <a class="navbar-brand" href="/search-product">
             <img
               class="logo-img"
               src="../image/logolaptopok.png"
@@ -180,14 +180,23 @@ pageEncoding="ISO-8859-1"%>
           </a>
           <!-- seach -->
           <div class="input-group" style="width: 350px; margin-left: 20px">
-            <form action="/search-product" method="get">
+            <form
+              style="display: flex; align-items: center"
+              action="/search-product"
+              method="get"
+            >
               <input
                 type="text"
                 name="query"
                 class="form-control"
                 placeholder="Search"
               />
-              <button type="submit"><i class="bi bi-search"></i></button>
+              <button
+                style="margin-left: 5px; padding: 4px; border-radius: 5px"
+                type="submit"
+              >
+                <i class="bi bi-search"></i>
+              </button>
             </form>
           </div>
           <!-- search -->

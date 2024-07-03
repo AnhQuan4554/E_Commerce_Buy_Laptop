@@ -21,9 +21,9 @@ public class RemoveFromCartServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		try (PrintWriter out = response.getWriter()) {
-			String bookId = request.getParameter("id");
+			int bookId =Integer.parseInt(request.getParameter("id")) ;
 
-			if (bookId != null) {
+			if (request.getParameter("id") != null && request.getParameter("id") != "") {
 				CartDao cartDao = new CartDao();
 				boolean isDeleted = cartDao.deleteCartById(bookId);
 				System.out.println("delete card success" + bookId);

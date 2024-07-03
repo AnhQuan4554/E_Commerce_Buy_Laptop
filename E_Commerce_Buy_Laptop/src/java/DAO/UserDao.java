@@ -138,14 +138,15 @@ public class UserDao extends DbCon {
     public boolean updateUser(User updatedUser) {
         boolean updated = false;
         try {
-            query = "update user set username=?, email=?, address=?, birthday=?, phone=? where email=?";
+            System.out.println("xxxx chay den day");
+            query = "update user set username=?, phone=?, email=?,role=?, address=? where email=?";
             pst = con.prepareStatement(query);
             pst.setString(1, updatedUser.getUsername());
-            pst.setString(2, updatedUser.getEmail());
-            pst.setString(3, updatedUser.getAddress());
-            // pst.setString(4, updatedUser.getBirthday());
-            pst.setString(5, updatedUser.getPhone());
-            pst.setString(6, updatedUser.getEmail());
+             pst.setString(2, updatedUser.getPhone());
+            pst.setString(3, updatedUser.getEmail());
+               pst.setInt(4, updatedUser.getRole());
+            pst.setString(5, updatedUser.getAddress());
+             pst.setString(6, updatedUser.getEmail());
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
                 updated = true;

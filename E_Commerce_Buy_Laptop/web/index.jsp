@@ -206,7 +206,7 @@ if (auth != null) {
                                         <div>
                                             <a class="btn btn-dark" 
                                                href="/add-to-cart?id=${p.productID}&name=${p.productName}&price=${p.price}&category=${p.categoryID}&image=${p.image}">Add to Cart</a>
-                                            <a class="btn btn-primary" href="order-now?quantity=1&productID=${p.productID}&priceEach=${p.price}">Buy Now</a>
+                                            <a class="btn btn-primary" href="order-now?quantity=1&productID=${p.productID}&cartID">Buy Now</a>
                                         </div>
                                     </div>
                                 </div>

@@ -41,20 +41,30 @@ public class AddToCartServlet extends HttpServlet {
             Double price = Double.parseDouble(request.getParameter("price"));
 
             String image = request.getParameter("image");
+              CartDao cartDao = new CartDao();
             if (auth.getEmail() == "" || auth.getEmail() == null) {
                 response.sendRedirect("/login_require.jsp");
             } else { 
-                CartDao cartDao = new CartDao();
-                Cart_Item cart_Item  =new Cart_Item(p_id, name, 1, price);
+                
+              
+                Cart_Item exitedCartItem = cartDao.findCartItemByDate(p_id);
+                if(exitedCartItem == null){
+                                 Cart_Item cart_Item  =new Cart_Item(p_id, name, 1, price);
                  Cart_Item newCart_Item =  cartDao.createCartItem(cart_Item);
                
                   Shopping_Cart shopping_Cart = new Shopping_Cart(newCart_Item.getCartID(), auth.getUserID());
                 
                   Shopping_Cart newShoppingCart = cartDao.createShoppingCart(shopping_Cart);
-             
-                if (newCart_Item != null  && newShoppingCart != null) {
-                    response.sendRedirect("/notify/addCartSuccess.jsp");
+                  
+               response.sendRedirect("/notify/addCartSuccess.jsp");
+                
+                }else{
+                exitedCartItem.setQuantity(exitedCartItem.getQuantity()+1);
+                cartDao.updateCartItem(exitedCartItem);
+                 response.sendRedirect("/notify/addCartSuccess.jsp");
                 }
+   
+             
             }
 
          

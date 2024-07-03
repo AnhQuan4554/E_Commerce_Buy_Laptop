@@ -63,10 +63,17 @@ public class SearchProduct extends HttpServlet {
     throws ServletException, IOException {
         ProductDao productDao = new ProductDao();
            String searchQuery = request.getParameter("query");
-        List<Product> searchResults = productDao.searchProductsByName(searchQuery);
-        System.out.println("product when search +++"+searchResults);
-         request.getSession().setAttribute("products", searchResults);
+           System.out.println("query+++"+searchQuery);
+           if(searchQuery == null){
+            List<Product> searchResults = productDao.getAllProducts();
+              request.getSession().setAttribute("products", searchResults);
                 response.sendRedirect("index.jsp");
+           }else{
+             List<Product> searchResults = productDao.searchProductsByName(searchQuery);
+                  request.getSession().setAttribute("products", searchResults);
+                response.sendRedirect("index.jsp");
+           }
+      
      
     } 
 

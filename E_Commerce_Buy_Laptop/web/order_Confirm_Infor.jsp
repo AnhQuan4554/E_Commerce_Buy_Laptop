@@ -101,7 +101,7 @@
       placeholder="Enter quantity"
     />
   </div>
-  <div class="form-group">
+  <div   style="display: none;" class="form-group">
    
     <input
       type="number"
@@ -112,7 +112,7 @@
       style="display: none"
     />
   </div>
-  <div class="form-group">
+  <div   style="display: none;" class="form-group">
    
     <input
       type="number"
@@ -120,7 +120,7 @@
       id="cartID"
       name="cartID"
       value =${cartID}
-      style="display: none"
+      style="display: none;"
     />
   </div>
   <button type="submit" class="btn btn-primary">Submit Order</button>

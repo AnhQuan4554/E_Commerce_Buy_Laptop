@@ -14,6 +14,7 @@ public class Cart_Item {
     private String productName;
     private int quantity;
     private Double price;
+    private String create_at;
 
     public Cart_Item(int cartID, int productID, String productName, int quantity, Double price) {
         this.cartID = cartID;
@@ -29,6 +30,23 @@ public class Cart_Item {
         this.quantity = quantity;
         this.price = price;
     }
+
+    public Cart_Item(int productID, String productName, int quantity, Double price, String create_at) {
+        this.productID = productID;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.price = price;
+        this.create_at = create_at;
+    }
+
+    public String getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(String create_at) {
+        this.create_at = create_at;
+    }
+    
 
     public Cart_Item() {
     }
